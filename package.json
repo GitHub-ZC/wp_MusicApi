@@ -1,12 +1,25 @@
 {
   "name": "wp_MusicApi",
   "version": "1.0.0",
-  "description": "",
+  "description": "一款Node.js的音乐接口",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "ZC",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GitHub-ZC/wp_MusicApi.git"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "crypto-js": "^4.0.0",
+    "koa": "^2.13.0",
+    "koa-body": "^4.2.0",
+    "koa-router": "^10.0.0",
+    "node-jsencrypt": "^1.0.0"
+  }
 }
