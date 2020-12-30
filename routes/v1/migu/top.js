@@ -97,7 +97,7 @@ let topCategory = async (ctx) => {
                     topName: '网络榜'
                 },
                 {
-                    topId: 12,
+                    topId: 13,
                     topName: '新专辑榜'
                 },
             ]

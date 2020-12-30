@@ -10,21 +10,20 @@ const app = new Koa();
 
 // 对于任何请求，app将调用该异步函数处理请求：
 app.use(async (ctx, next) => {
-    try {
+    // try {
         const start = new Date().getTime(); // 当前时间
         await next(); // 调用下一个middleware
         const ms = new Date().getTime() - start; // 耗费时间
         console.log(`${ctx.request.method} ${ctx.request.url} ${ctx.status} Time: ${ms}ms`); // 打印耗费时间
-    } catch (error) {
-        ctx.body = JSON.stringify({
-            error: '服务端内部错误，请联系管理员',
-            status: 400
-        })
-        ctx.type = 'application/json';
-    }
+    // } catch (error) {
+    //     ctx.body = JSON.stringify({
+    //         error: '服务端内部错误，请联系管理员',
+    //         status: 400,
+    //         info: error.toString()
+    //     })
+    //     ctx.type = 'application/json';
+    // }
 });
-
-// add url-route:
 
 
 // add bodyparse middleware
