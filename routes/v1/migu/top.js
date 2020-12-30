@@ -25,7 +25,7 @@ let top = async (ctx) => {
         '13': 'newalbum'
     };
 
-    let result = await migu_request(`https://music.migu.cn/v3/music/top/${topList[topId]}`);
+    let result = await migu_request(`https://music.migu.cn/v3/music/top/${topList[topId.trim()]}`);
 
     // 排行榜正则匹配规则,官方接口默认不支持这么多接口,走爬虫
     let rule = /<script>\s{0,}var\s{0,}listData\s{0,}=\s{0,}({.*})\s{0,}<\/script>/s;

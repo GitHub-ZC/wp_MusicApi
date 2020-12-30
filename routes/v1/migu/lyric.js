@@ -9,7 +9,7 @@ let lyric = async (ctx) => {
     }
 
     let result = await migu_request(`https://music.migu.cn/v3/api/music/audioPlayer/getLyric`, {
-        copyrightId: cid
+        copyrightId: cid.trim()
     });
     
     try {

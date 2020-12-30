@@ -10,7 +10,7 @@ let singer_Info = async (ctx) => {
     }
 
     let result = await migu_request(`https://m.music.migu.cn/migu/remoting/cms_artist_detail_tag`, {
-        artistId: artistId
+        artistId: artistId.trim()
     });
     
     try {

@@ -13,8 +13,8 @@ let playList_info = async (ctx) => {
 
     let result = await migu_request(`https://m.music.migu.cn/migu/remoting/playlistcontents_query_tag`, {
         playListType: 2,
-        playListId: playListId,
-        contentCount: limit
+        playListId: playListId.trim(),
+        contentCount: limit.trim()
     });
     
     try {
