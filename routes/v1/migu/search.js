@@ -19,7 +19,7 @@ let search = async (ctx) => {
     let result = await migu_request('https://m.music.migu.cn/migu/remoting/scr_search_tag', {
         rows: limit.trim(),
         type: type.trim(),
-        keyword: key.trim(),
+        keyword: key,
         pgc: offset.trim()
     });
 
@@ -36,13 +36,43 @@ let search = async (ctx) => {
 }
 
 // 热搜
-let hotSearch = async () => {
-    let result = await migu_request(
+let hotSearch = async (ctx) => {
+    let result = await migu_request('https://music.migu.cn/v3/api/search/hotwords');
+    try {
+        ctx.body = JSON.stringify(result.data);
+    } catch (error) {
+        ctx.body = JSON.stringify({
+            error: '服务端数据解析错误',
+            status: 400
+        })
+    }
+    ctx.type = 'application/json';
+}
 
-    );
-    
+let suggestSearch = async (ctx) => {
+    if (ctx.request.method === 'GET') {
+        var key = ctx.request.query.key || '';
+        // console.log(typeof ctx.request.query.limit, limit);
+    } else if (ctx.request.method === 'POST') {
+        var key = ctx.request.body.key || '';
+    }
+
+    let result = await migu_request(`https://m.music.migu.cn/migu/remoting/autocomplete_tag`, {
+        keyword: key
+    });
+    try {
+        ctx.body = JSON.stringify(result.data);
+    } catch (error) {
+        ctx.body = JSON.stringify({
+            error: '服务端数据解析错误',
+            status: 400
+        })
+    }
+    ctx.type = 'application/json';
 }
 
 module.exports = {
-    search
+    search,
+    hotSearch,
+    suggestSearch
 }
