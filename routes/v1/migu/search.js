@@ -1,4 +1,6 @@
 const { migu_request } = require("../../../util/migu_request");
+const APIError = require("../../../middlewares/rest").APIError;
+
 
 // 关键字搜索（type：歌曲 2  歌手：1  专辑： 4 歌单：6  ​MV：5 ​ 歌词：7）
 let search = async (ctx) => {
@@ -24,29 +26,32 @@ let search = async (ctx) => {
     });
 
     // 捕捉服务端解析错误，防止程序退出
-    try {
-        ctx.body = JSON.stringify(result.data);
-    } catch (error) {
-        ctx.body = JSON.stringify({
-            error: '服务端数据解析错误',
-            status: 400
-        })
-    }
-    ctx.type = 'application/json';
+    ctx.rest(result.data);
+
+    // try {
+    //     ctx.body = JSON.stringify(result.data);
+    // } catch (error) {
+    //     ctx.body = JSON.stringify({
+    //         error: '服务端数据解析错误',
+    //         status: 400
+    //     })
+    // }
+    // ctx.type = 'application/json';
 }
 
 // 热搜
 let hotSearch = async (ctx) => {
     let result = await migu_request('https://music.migu.cn/v3/api/search/hotwords');
-    try {
-        ctx.body = JSON.stringify(result.data);
-    } catch (error) {
-        ctx.body = JSON.stringify({
-            error: '服务端数据解析错误',
-            status: 400
-        })
-    }
-    ctx.type = 'application/json';
+    ctx.rest(result.data);
+    // try {
+    //     ctx.body = JSON.stringify(result.data);
+    // } catch (error) {
+    //     ctx.body = JSON.stringify({
+    //         error: '服务端数据解析错误',
+    //         status: 400
+    //     })
+    // }
+    // ctx.type = 'application/json';
 }
 
 let suggestSearch = async (ctx) => {
@@ -60,15 +65,17 @@ let suggestSearch = async (ctx) => {
     let result = await migu_request(`https://m.music.migu.cn/migu/remoting/autocomplete_tag`, {
         keyword: key
     });
-    try {
-        ctx.body = JSON.stringify(result.data);
-    } catch (error) {
-        ctx.body = JSON.stringify({
-            error: '服务端数据解析错误',
-            status: 400
-        })
-    }
-    ctx.type = 'application/json';
+
+    ctx.rest(result.data);
+    // try {
+    //     ctx.body = JSON.stringify(result.data);
+    // } catch (error) {
+    //     ctx.body = JSON.stringify({
+    //         error: '服务端数据解析错误',
+    //         status: 400
+    //     })
+    // }
+    // ctx.type = 'application/json';
 }
 
 module.exports = {

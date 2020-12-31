@@ -5,6 +5,8 @@ const v1 = require('./routes/v1/controllers');
 // 解析request的body的功能
 const koaBody = require("koa-body");
 
+const { restify } = require('./middlewares/rest');
+
 // 创建一个Koa对象表示web app本身:
 const app = new Koa();
 
@@ -25,6 +27,7 @@ app.use(async (ctx, next) => {
     // }
 });
 
+app.use(restify());
 
 // add bodyparse middleware
 app.use(koaBody({ multipart: true }));

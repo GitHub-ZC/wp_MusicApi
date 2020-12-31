@@ -1,4 +1,6 @@
 const { migu_request } = require("../../../util/migu_request");
+const APIError = require("../../../middlewares/rest").APIError;
+
 
 // 歌手基本信息显示
 let playList_info = async (ctx) => {
@@ -16,16 +18,19 @@ let playList_info = async (ctx) => {
         playListId: playListId.trim(),
         contentCount: limit.trim()
     });
-    
-    try {
-        ctx.body = JSON.stringify(result.data);
-    } catch (error) {
-        ctx.body = JSON.stringify({
-            error: '服务端数据解析错误',
-            status: 400
-        })
-    }
-    ctx.type = 'application/json';
+
+
+    ctx.rest(result.data);
+
+    // try {
+    //     ctx.body = JSON.stringify(result.data);
+    // } catch (error) {
+    //     ctx.body = JSON.stringify({
+    //         error: '服务端数据解析错误',
+    //         status: 400
+    //     })
+    // }
+    // ctx.type = 'application/json';
 }
 
 
