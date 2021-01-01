@@ -1,6 +1,6 @@
 const Router = require('koa-router');
 
-const { search } = require('./search');
+const { search, hotSearch, suggestSearch } = require('./search');
 const { song, songInfo } = require('./song');
 const { top, topCategory } = require('./top');
 const { lyric } = require('./lyric');
@@ -9,11 +9,10 @@ const { lyric } = require('./lyric');
 const kuwo = new Router();
 
 // add get method
-// kuwo.get('/index', index);
 
 kuwo.get('/search', search);
-// kuwo.get('/hotSearch', hotSearch);
-// kuwo.get('/suggestSearch', suggestSearch);
+kuwo.get('/hotSearch', hotSearch);
+kuwo.get('/suggestSearch', suggestSearch);
 
 kuwo.get('/song', song);
 kuwo.get('/songInfo', songInfo);

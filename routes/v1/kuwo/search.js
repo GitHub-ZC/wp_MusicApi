@@ -2,7 +2,6 @@ const { kuwo_request } = require("../../../util/kuwo_request");
 const APIError = require("../../../middlewares/rest").APIError;
 
 
-// 关键字搜索（type：歌曲 2  歌手：1  专辑： 4 歌单：6  ​MV：5 ​ 歌词：7）
 let search = async (ctx) => {
     if (ctx.request.method === 'GET') {
         var key = ctx.request.query.key || '';
@@ -17,7 +16,6 @@ let search = async (ctx) => {
         var type = ctx.request.body.type || '2';
     }
 
-    // url = `https://m.music.migu.cn/migu/remoting/scr_search_tag?rows=${limit}&type=${type}&keyword=${key}&pgc=${offset}`;
     let result = await kuwo_request("http://kuwo.cn/api/www/search/searchMusicBykeyWord", {
         key: key,
         pn: offset.trim(),
@@ -32,30 +30,35 @@ let search = async (ctx) => {
 }
 
 // 热搜
-// let hotSearch = async (ctx) => {
-//     let result = await kuwo_request('https://music.migu.cn/v3/api/search/hotwords');
-//     ctx.rest(result.data);
+let hotSearch = async (ctx) => {
+    let result = await kuwo_request('http://kuwo.cn/api/www/search/searchKey', {
+        key: '',
+        httpsStatus: 1,
+        reqId: '28ef41b0-4c08-11eb-8015-69f0ef982187'
+    });
+    ctx.rest(result.data);
 
-// }
+}
 
-// let suggestSearch = async (ctx) => {
-//     if (ctx.request.method === 'GET') {
-//         var key = ctx.request.query.key || '';
-//         // console.log(typeof ctx.request.query.limit, limit);
-//     } else if (ctx.request.method === 'POST') {
-//         var key = ctx.request.body.key || '';
-//     }
+let suggestSearch = async (ctx) => {
+    if (ctx.request.method === 'GET') {
+        var key = ctx.request.query.key || '';
+        // console.log(typeof ctx.request.query.limit, limit);
+    } else if (ctx.request.method === 'POST') {
+        var key = ctx.request.body.key || '';
+    }
 
-//     let result = await kuwo_request(`https://m.music.migu.cn/migu/remoting/autocomplete_tag`, {
-//         keyword: key
-//     });
-
-//     ctx.rest(result.data);
+    let result = await kuwo_request('http://kuwo.cn/api/www/search/searchKey', {
+        key: key.trim(),
+        httpsStatus: 1,
+        reqId: '28ef41b0-4c08-11eb-8015-69f0ef982187'
+    });
+    ctx.rest(result.data);
     
-// }
+}
 
 module.exports = {
     search,
-    // hotSearch,
-    // suggestSearch
+    hotSearch,
+    suggestSearch
 }
