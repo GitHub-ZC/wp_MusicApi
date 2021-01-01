@@ -2,7 +2,7 @@ const { migu_request } = require("../../../util/migu_request");
 const APIError = require("../../../middlewares/rest").APIError;
 
 
-// 歌手基本信息显示
+// 歌单歌曲
 let playList_info = async (ctx) => {
     if (ctx.request.method === 'GET') {
         var playListId = ctx.request.query.playListId || '179730639';

@@ -49,6 +49,9 @@ let song = async (ctx) => {
     })
     // console.log(result);
     // 捕获序列化json出错，防止程序异常退出
+    if (result.data === 'failed') {
+        throw new APIError("Song:url_notfound", "Song url is not found")
+    }
     
     ctx.rest(result.data);
 }

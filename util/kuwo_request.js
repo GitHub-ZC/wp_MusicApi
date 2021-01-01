@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { APIError } = require('../middlewares/rest');
 
 let kuwo_request = async (url, _params) => {
     let result = {};
@@ -25,10 +26,7 @@ let kuwo_request = async (url, _params) => {
             });
         }
     } catch (error) {
-        result.data = {
-            error: '请求酷我服务器失败，请检查本地网络或者联系管理员',
-            status: 400
-        }
+        throw new APIError('Request:Request_error', 'Request is error, please recover');
     }
 
     return result;
