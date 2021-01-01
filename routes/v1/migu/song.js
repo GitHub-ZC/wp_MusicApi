@@ -1,6 +1,8 @@
 const CrypotJs = require("crypto-js");
 const JsEncrypt = require('node-jsencrypt');
 const { migu_request } = require("../../../util/migu_request");
+const APIError = require("../../../middlewares/rest").APIError;
+
 
 let song = async (ctx) => {
     // var
@@ -37,15 +39,17 @@ let song = async (ctx) => {
     })
     // console.log(result);
     // 捕获序列化json出错，防止程序异常退出
-    try {
-        ctx.body = JSON.stringify(result.data);
-    } catch (error) {
-        ctx.body = JSON.stringify({
-            error: '服务端数据解析错误',
-            status: 400
-        })
-    }
-    ctx.type = 'application/json';
+    
+    ctx.rest(result.data);
+    // try {
+    //     ctx.body = JSON.stringify(result.data);
+    // } catch (error) {
+    //     ctx.body = JSON.stringify({
+    //         error: '服务端数据解析错误',
+    //         status: 400
+    //     })
+    // }
+    // ctx.type = 'application/json';
     // ctx.body = "true";
 }
 

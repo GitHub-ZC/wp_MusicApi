@@ -1,5 +1,5 @@
 const Router = require('koa-router');
-const { index } = require('./index');
+
 const { search, hotSearch, suggestSearch } = require('./search');
 const { song } = require('./song');
 const { lyric } = require('./lyric');
@@ -11,7 +11,6 @@ const { playList_info } = require('./playlist');
 const migu = new Router();
 
 // add get method
-migu.get('/index', index);
 
 migu.get('/search', search);
 migu.get('/hotSearch', hotSearch);

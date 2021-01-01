@@ -1,4 +1,5 @@
 const { migu_request } = require("../../../util/migu_request");
+const APIError = require("../../../middlewares/rest").APIError;
 
 // 排行榜歌单详情
 let top = async (ctx) => {
@@ -30,15 +31,13 @@ let top = async (ctx) => {
     // 排行榜正则匹配规则,官方接口默认不支持这么多接口,走爬虫
     let rule = /<script>\s{0,}var\s{0,}listData\s{0,}=\s{0,}({.*})\s{0,}<\/script>/s;
     
+    
     try {
         // ctx.body = JSON.stringify(result.data);
         let arr = rule.exec(result.data);
-        ctx.body = arr[1];
+        ctx.rest(arr[1]);
     } catch (error) {
-        ctx.body = JSON.stringify({
-            error: '服务端数据解析错误',
-            status: 400
-        })
+        throw new APIError("Top:parse_error", "Json parse error");
     }
     ctx.type = 'application/json';
 }
@@ -104,15 +103,16 @@ let topCategory = async (ctx) => {
         }
     };
 
-    try {
-        ctx.body = JSON.stringify(topList);
-    } catch (error) {
-        ctx.body = JSON.stringify({
-            error: '服务端数据解析错误',
-            status: 400
-        })
-    }
-    ctx.type = 'application/json';
+    ctx.rest(topList);
+    // try {
+    //     ctx.body = JSON.stringify(topList);
+    // } catch (error) {
+    //     ctx.body = JSON.stringify({
+    //         error: '服务端数据解析错误',
+    //         status: 400
+    //     })
+    // }
+    // ctx.type = 'application/json';
 }
 
 module.exports = {

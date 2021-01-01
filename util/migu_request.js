@@ -20,10 +20,7 @@ let migu_request = async (url, _params) => {
             });
         }
     } catch (error) {
-        result.data = {
-            error: '请求咪咕服务器失败，请检查本地网络或者联系管理员',
-            status: 400
-        }
+        throw new APIError('Request:Request_error', 'Request is error, please recover');
     }
 
     return result;
