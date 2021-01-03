@@ -7,11 +7,11 @@ let song = async (ctx) => {
     if (ctx.request.method === 'GET') {
         var aid = ctx.request.query.aid || '966846';
         var hash = ctx.request.query.hash || '3bd5c05b9f8d082ba3c9425a1a712394';
-        var br = ctx.request.query.br || '320';
+        // var br = ctx.request.query.br || '320';
     } else if (ctx.request.method === 'POST') {
         var aid = ctx.request.body.aid || '40838934';
         var hash = ctx.request.body.hash || '69BD09288628AFDB15F189BCE99988AC';
-        var br = ctx.request.body.br || '320';
+        // var br = ctx.request.body.br || '320';
     }
 
 

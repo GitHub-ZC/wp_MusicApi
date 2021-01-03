@@ -4,7 +4,7 @@ const { search, hotSearch, suggestSearch } = require('./search');
 const { song, songInfo } = require('./song');
 const { top, topCategory } = require('./top');
 const { lyric } = require('./lyric');
-// const { playlist_tagCategory, playlist_Tag, playlist_Info } = require('./playlist');
+const { playlist_tagCategory, playlist_Tag, playlist_Info } = require('./playlist');
 
 // 新建 咪咕 路由
 const kugou = new Router();
@@ -26,9 +26,9 @@ kugou.get('/topCategory', topCategory);
 // kugou.get('/singer/info', singer_Info);
 // kugou.get('/singer/songList', singer_songList);
 
-// kugou.get('/playlist/tagCategory', playlist_tagCategory);
-// kugou.get('/playlist/tag', playlist_Tag);
-// kugou.get('/playlist/info', playlist_Info);
+kugou.get('/playlist/tagCategory', playlist_tagCategory);
+kugou.get('/playlist/tag', playlist_Tag);
+kugou.get('/playlist/info', playlist_Info);
 
 // // add post method
 // kugou.post('/song', song);
