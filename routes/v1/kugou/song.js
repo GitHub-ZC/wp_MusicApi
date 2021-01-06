@@ -34,24 +34,24 @@ let song = async (ctx) => {
 }
 
 
-let songInfo = async (ctx) => {
+// let songInfo = async (ctx) => {
 
-    if (ctx.request.method === 'GET') {
-        var rid = ctx.request.query.rid || '156483846';
-    } else if (ctx.request.method === 'POST') {
-        var rid = ctx.request.body.rid || '156483846';
-    }
+//     if (ctx.request.method === 'GET') {
+//         var rid = ctx.request.query.rid || '156483846';
+//     } else if (ctx.request.method === 'POST') {
+//         var rid = ctx.request.body.rid || '156483846';
+//     }
 
-    let result = await kuwo_request('http://kuwo.cn/api/www/music/musicInfo', {
-        mid: rid.trim(),
-        httpsStatus: 1,
-        reqId: 'e3f36a20-4c05-11eb-b0b7-8b03aa7e4b0d'
-    });
+//     let result = await kuwo_request('http://kuwo.cn/api/www/music/musicInfo', {
+//         mid: rid.trim(),
+//         httpsStatus: 1,
+//         reqId: 'e3f36a20-4c05-11eb-b0b7-8b03aa7e4b0d'
+//     });
 
-    ctx.rest(result.data);
-}
+//     ctx.rest(result.data);
+// }
 
 module.exports = {
-    song,
-    songInfo
+    song
+    // songInfo
 }
