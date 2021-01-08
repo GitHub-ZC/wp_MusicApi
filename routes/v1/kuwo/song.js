@@ -34,8 +34,11 @@ let song = async (ctx) => {
         case '1000':
             format = 'ape';
             break;
+        case '2000':
+            format = 'flac';
+            break;
         default:
-            format = 'format_error';
+            format = 'flac';
     }
 
     if (format === 'format_error') {
@@ -46,6 +49,7 @@ let song = async (ctx) => {
         br: `${br}k${format}`,
         type: 'convert_url3',
         rid: rid.trim()
+        // from: 'pc'
     })
     // console.log(result);
     // 捕获序列化json出错，防止程序异常退出

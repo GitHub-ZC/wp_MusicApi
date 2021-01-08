@@ -4,8 +4,15 @@ const Koa = require('koa');
 const v1 = require('./routes/v1/controllers');
 // 解析request的body的功能
 const koaBody = require("koa-body");
-
+// 异常捕获
 const { restify } = require('./middlewares/rest');
+
+// 自定义库
+const config = require('./setting');
+const __Cookie = require('./util/cookie_util');
+
+// 设置qq音乐的cookie
+global.qq_cookie = __Cookie.parse(config.qq_cookie);
 
 // 创建一个Koa对象表示web app本身:
 const app = new Koa();
@@ -27,6 +34,7 @@ app.use(async (ctx, next) => {
     // }
 });
 
+// 异常捕获
 app.use(restify());
 
 // add bodyparse middleware
@@ -35,5 +43,5 @@ app.use(koaBody({ multipart: true }));
 app.use(v1.routes());
 
 // 在端口3000监听:
-app.listen(5000);
+app.listen(config.port);
 console.log('app started at url http://localhost:5000 ...');
