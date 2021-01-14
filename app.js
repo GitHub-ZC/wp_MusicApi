@@ -7,6 +7,8 @@ const koaBody = require("koa-body");
 // 异常捕获
 const { restify } = require('./middlewares/rest');
 
+const cors = require('koa2-cors');
+
 // 自定义库
 const config = require('./setting');
 const __Cookie = require('./util/cookie_util');
@@ -16,6 +18,8 @@ global.qq_cookie = __Cookie.parse(config.qq_cookie);
 
 // 创建一个Koa对象表示web app本身:
 const app = new Koa();
+
+app.use(cors());
 
 // 对于任何请求，app将调用该异步函数处理请求：
 app.use(async (ctx, next) => {
