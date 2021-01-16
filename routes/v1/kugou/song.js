@@ -1,4 +1,4 @@
-const { kuwo_request } = require("../../../util/kuwo_request");
+const { kugou_request } = require("../../../util/kugou_request");
 const APIError = require("../../../middlewares/rest").APIError;
 
 
@@ -15,7 +15,7 @@ let song = async (ctx) => {
     }
 
 
-    let result = await kuwo_request('https://wwwapi.kugou.com/yy/index.php', {
+    let result = await kugou_request('https://wwwapi.kugou.com/yy/index.php', {
         r: 'play/getdata',
         hash: hash.trim(),
         dfid: '3vveN23r9XmR12T2CT2fRRjo',
