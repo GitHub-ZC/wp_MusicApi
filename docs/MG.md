@@ -1,0 +1,190 @@
+# 咪咕音乐<!-- {docsify-ignore} -->
+
+## 搜索
+
+### 搜索
+
+接口：`/v1/migu/search`
+
+可选参数：
+
+`key`：关键字 默认 暗号
+
+`limit`：每一页返回的数量，默认30
+
+`offset`：页码，默认 1
+
+`type`：默认 2 ；     //  歌曲： 2   歌手：1  专辑： 4 歌单：6  MV：5  歌词：7
+
+说明：调用此接口 , 传入搜索关键词可以搜索该音乐 / 专辑 / 歌手 / 歌单 / 用户(需要自己传入type参数) , 默认会自动去除 关键词 前后的**空白字符** 
+
+示例：[/v1/migu/search?key=晴天](http://iecoxe.top:5000/v1/migu/search?key=晴天)
+
+
+
+### 热搜
+
+接口：`/v1/migu/hotSearch`
+
+说明：调用此接口，默认会进行缓存处理
+
+示例：[/v1/migu/hotSearch](http://iecoxe.top:5000/v1/migu/hotSearch)
+
+
+
+### 搜索建议
+
+接口：`/v1/migu/suggestSearch?key=周杰伦`
+
+必选参数：`key`
+
+示例：[/v1/migu/suggestSearch?key=周杰伦](http://iecoxe.top:5000/v1/migu/suggestSearch?key=周杰伦)
+
+
+
+## 歌曲url
+
+接口：`/v1/migu/song`
+
+说明：
+
+- 由于目前时间紧促，目前此接口只能获取**128k**歌曲
+- migu没有采取 Cookie ，本人没有账号
+- 服务器会自动去除 id 以及之间的**空白字符**
+
+可选参数：
+
+`cid`：歌曲的`copyrightId`，默认`60054701923`
+`br`：1: 普通 2: 高品质 3: 无损，默认`1`
+
+示例：[/v1/migu/song?cid=60054701923](http://iecoxe.top:5000/v1/migu/song?cid=60054701923&br=3)
+
+
+
+## 歌词
+
+接口：`/v1/migu/lyric`
+
+可选参数：`cid`  歌曲的copyrightId      默认 `60084600554`
+
+示例：[/v1/migu/lyric?id=60084600554](http://iecoxe.top:5000/v1/migu/lyric?cid=60084600554)
+
+
+
+## 排行榜
+
+### 获取榜单列表
+
+接口：`/v1/migu/topCategory`
+
+说明：由于自我认为官方的 ajax 接口返回的数据太少，以及接口不健全，于是自己通过爬虫爬取获取的排行榜数据
+
+可选参数：`topId`  默认 2，热歌榜
+
+示例：[/v1/migu/topCategory](http://iecoxe.top:5000/v1/migu/topCategory)
+
+
+
+### 获取榜单详情
+
+接口：`/v1/migu/top`
+
+说明：由于自我认为官方的 ajax 接口返回的数据太少，以及接口不健全，于是自己通过爬虫爬取获取的排行榜数据
+
+可选参数：`topId`  默认 2，热歌榜
+
+`1`：尖叫新歌榜
+
+`2`：尖叫热歌榜
+
+`3`：尖叫原创榜
+
+`4`：音乐榜
+
+`5`：影视榜
+
+`6`：内地榜
+
+`7`：港台榜
+
+`8`：欧美榜
+
+`9`：日韩榜
+
+`10`：彩铃榜
+
+`11`：KTV榜
+
+`12`：网络榜
+
+`13`：新专辑榜
+
+示例：[/v1/migu/top?topId=2](http://iecoxe.top:5000/v1/migu/top?topId=2)
+
+
+
+## 歌手
+
+### 歌手详情
+
+接口：`/v1/migu/singer/info`
+
+可选参数：
+
+`artistId`：歌手ID  ，默认 18196
+
+示例：[/v1/migu/singer/info?artistId=18196](http://iecoxe.top:5000/v1/migu/singer/info?artistId=18196)
+
+
+
+### 歌手歌曲列表
+
+接口：`/v1/migu/singer/songList/`
+
+说明：由于自我认为官方的 ajax 接口返回的数据太少，以及接口不健全，于是自己通过爬虫爬取获取的歌手歌曲列表数据
+
+可选参数：
+
+`artistId`：歌手ID，默认 18196
+
+`offset`：分页，默认 1
+
+示例：[/v1/migu/singer/songList/?artistId=18196&offset=1](http://iecoxe.top:5000/v1/migu/singer/songList/?artistId=18196&offset=1)
+
+
+
+## 歌单
+
+### <s>歌单</s>(无效接口)
+
+接口：`/v1/migu/playlist/`
+
+说明：由于官方接口原因，默认每一页返回 10 条数据
+
+可选参数：
+
+`offset`：分页， 默认 1
+
+`type`：1： 推荐 ； 2： 最新， 默认 推荐
+
+示例：[/v1/migu/playlist/](http://iecoxe.top:5000/v1/migu/playlist/)
+
+返回字段含义：`contentCount` 歌单 歌曲 的总数量，可用于 下面接口 中  `limit` 参数
+
+
+
+### 歌单详情
+
+接口：`/v1/migu/playlist/info/`
+
+说明：`playListId`、`limit` 根据上面的接口( `/v1/migu/playlist/` )返回数据中获取
+
+​			`limit` 对应上面接口中的 `contentCount`
+
+可选参数：
+
+`playListId`：歌单的 ID，默认 179730639
+
+`limit`：返回数据的数量，默认 30
+
+示例：[/v1/migu/playlist/info/](http://iecoxe.top:5000/v1/migu/playlist/info/)
