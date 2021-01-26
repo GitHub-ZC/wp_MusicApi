@@ -48,7 +48,7 @@ let suggestSearch = async (ctx) => {
         var key = ctx.request.body.key || '';
     }
 
-    let result = await qq_request(`https://c.y.qq.com/splcloud/fcgi-bin/smartbox_new.fcg?key=${key}&format=json`);
+    let result = await qq_request(`https://c.y.qq.com/splcloud/fcgi-bin/smartbox_new.fcg?key=${encodeURI(key)}&format=json`);
     ctx.rest(result.data);
 }
 
