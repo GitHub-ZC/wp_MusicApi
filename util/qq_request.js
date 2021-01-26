@@ -27,8 +27,8 @@ let qq_request = async (url, _params) => {
             });
         }
     } catch (error) {
-        throw new APIError('Request:Request_error', 'Request is error, please recover');
         // console.log(error);
+        throw new APIError('Request:Request_error', 'Request is error, please recover');
     }
     // console.log(__Cookie.serialization(global.qq_cookie));
     return result;
