@@ -51,7 +51,7 @@ let song = async (ctx) => {
 
     ctx.rest({
         data: {
-            url: result.data.req_0.data.midurlinfo.length && result.data.req_0.data.midurlinfo[0].purl ? 'http://ws.stream.qqmusic.qq.com/' + result.data.req_0.data.midurlinfo[0].purl : {}
+            url: result.data.req_0.data.midurlinfo.length && result.data.req_0.data.midurlinfo[0].purl ? 'https://isure.stream.qqmusic.qq.com/' + result.data.req_0.data.midurlinfo[0].purl : {}
         },
         code: "成功"
     });
