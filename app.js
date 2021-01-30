@@ -4,10 +4,15 @@ const Koa = require('koa');
 const v1 = require('./routes/v1/controllers');
 // 解析request的body的功能
 const koaBody = require("koa-body");
-// 异常捕获
+// 异常捕获,josn格式化输出
 const { restify } = require('./middlewares/rest');
+const { cache_redis } = require('./middlewares/cache_redis');
 
+// 跨域
 const cors = require('koa2-cors');
+
+// redis
+require('./redis');
 
 // 自定义库
 const config = require('./setting');
@@ -23,23 +28,16 @@ app.use(cors());
 
 // 对于任何请求，app将调用该异步函数处理请求：
 app.use(async (ctx, next) => {
-    // try {
         const start = new Date().getTime(); // 当前时间
         await next(); // 调用下一个middleware
         const ms = new Date().getTime() - start; // 耗费时间
         console.log(`${ctx.request.method} ${ctx.request.url} ${ctx.status} Time: ${ms}ms`); // 打印耗费时间
-    // } catch (error) {
-    //     ctx.body = JSON.stringify({
-    //         error: '服务端内部错误，请联系管理员',
-    //         status: 400,
-    //         info: error.toString()
-    //     })
-    //     ctx.type = 'application/json';
-    // }
 });
 
-// 异常捕获
+// 异常捕获,注册restful函数
 app.use(restify());
+
+app.use(cache_redis);
 
 // add bodyparse middleware
 app.use(koaBody({ multipart: true }));

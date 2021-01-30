@@ -8,7 +8,17 @@ module.exports = {
         return async (ctx, next) => {
             if (ctx.request.path.startsWith(pathPrefix)) {
                 // 绑定rest()方法:
-                ctx.rest = (data) => {
+                ctx.rest = (data, isCache=true) => {
+                    if (isCache) {
+                        if (data instanceof Object) {
+                            global.redisClient.set(`${ctx.request.url}`, JSON.stringify(data));
+                        } else {
+                            global.redisClient.set(`${ctx.request.url}`, data);
+                        }
+                        
+                        global.redisClient.expire(`${ctx.request.url}`, 120);
+                    }
+                    // console.log("?????", data);
                     ctx.response.type = 'application/json';
                     ctx.response.body = data;
                 }

@@ -21,13 +21,13 @@ let setcookie = async (ctx) => {
         code: '成功',
         msg: 'Cookie add successful',
         status: 200
-    });
+    }, false);
 }
 
 // 获取qq cookie
 let getcookie = async (ctx) => {
    
-    ctx.rest(global.qq_cookie);
+    ctx.rest(global.qq_cookie, false);
 }
 
 module.exports = {

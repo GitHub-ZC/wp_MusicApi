@@ -27,7 +27,6 @@ let search = async (ctx) => {
     }
 
     let result = await qq_request(url);
-    // console.log(__Cookie.parse(global.qq_cookie));
 
     // 捕捉服务端解析错误，防止程序退出
     ctx.rest(result.data);
