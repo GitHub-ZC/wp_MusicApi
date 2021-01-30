@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "colorthief": "^2.3.2",
     "crypto-js": "^4.0.0",
     "koa": "^2.13.0",
     "koa-body": "^4.2.0",

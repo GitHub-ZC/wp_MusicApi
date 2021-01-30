@@ -2,7 +2,7 @@ const { kugou_request } = require("../../../util/kugou_request");
 const APIError = require("../../../middlewares/rest").APIError;
 
 // 第三方加密库
-const cryptoJs = require('crypto-js');
+const CrypotJs = require("crypto-js");
 
 // kugou music search api
 // 可用的 search api
@@ -44,7 +44,7 @@ let search = async (ctx) => {
                 `uuid=${k}`,
                 "NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt"];
         
-    let signature = cryptoJs.MD5(o.join(""));
+    let signature = CrypotJs.MD5(o.join(""));
     // 加密结束
     // console.log(signature);
     // console.log(k);
