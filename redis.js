@@ -3,7 +3,7 @@ const { promisify } = require("util");
 // 开启redis客户端连接
 const redis = require("redis");
 global.redisClient = redis.createClient({
-    host: 'iecoxe.top'
+    // host: 'iecoxe.top'
     // prefix: 'wpmusic_'
 });
 
