@@ -25,12 +25,24 @@ let top = async (ctx) => {
 
 // 排行榜分类
 let topCategory = async (ctx) => {
-    let result = await kuwo_request('http://kuwo.cn/api/www/bang/bang/bangMenu', {
-        httpsStatus: 1,
-        reqId: '61352da0-4c03-11eb-b0b7-8b03aa7e4b0d'
-    })
+    if (ctx.request.method === 'GET') {
+        var from = ctx.request.query.from || 'pc';
+    } else if (ctx.request.method === 'POST') {
+        var from = ctx.request.body.from || 'pc';
+    }
+
+    if (from === 'pc') {
+        var result = await kuwo_request('http://m.kuwo.cn/newh5app/api/mobile/v1/typelist/rank');
+    } else if (from === 'web') {
+        var result = await kuwo_request('http://kuwo.cn/api/www/bang/bang/bangMenu', {
+            httpsStatus: 1,
+            reqId: '61352da0-4c03-11eb-b0b7-8b03aa7e4b0d'
+        });
+    }
 
     ctx.rest(result.data);
+    result = null;
+    from = null;
 }
 
 module.exports = {
