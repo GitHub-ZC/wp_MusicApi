@@ -38,7 +38,7 @@ let song = async (ctx) => {
             format = 'flac';
             break;
         default:
-            format = 'flac';
+            format = 'format_error';
     }
 
     if (format === 'format_error') {
