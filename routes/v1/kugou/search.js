@@ -92,12 +92,22 @@ let search = async (ctx) => {
 
 // 热搜
 let hotSearch = async (ctx) => {
-    let result = await kugou_request('https://searchrecommend.kugou.com/v1/word_nofocus', {
-        platform: 'pc',
-        _: 1609509985634
-    });
-    ctx.rest(result.data);
+    if (ctx.request.method === 'GET') {
+        var from = ctx.request.query.from || 'pc';
+    } else if (ctx.request.method === 'POST') {
+        var from = ctx.request.body.from || 'pc';
+    }
 
+    if (from === 'pc') {
+        var result = await kugou_request('http://gateway.kugou.com/api/v3/search/hot_tab?signature=ee44edb9d7155821412d220bcaf509dd&appid=1005&clientver=10026&plat=0');
+    } else if (from === 'web') {
+        var result = await kugou_request('https://searchrecommend.kugou.com/v1/word_nofocus', {
+            platform: 'pc',
+            _: 1609509985634
+        });
+    }
+
+    ctx.rest(result.data);
 }
 
 let suggestSearch = async (ctx) => {

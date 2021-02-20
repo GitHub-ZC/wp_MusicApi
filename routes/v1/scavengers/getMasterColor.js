@@ -16,11 +16,11 @@ let getMasterColor = async (ctx) => {
     }
 
     try {
-        let palette = await ColorThief.getPalette(imgUrl, 3);
+        let palette = await ColorThief.getColor(imgUrl);
 
-        ctx.rest(palette.map(element => rgbToHex(...element)));
+        ctx.rest({color: rgbToHex(...palette)});
     } catch (error) {
-        throw new APIError('Scavengers:ColorThief', 'scavengers is error');
+        ctx.rest({color: rgbToHex(255, 255, 255)});
     }
     
 }

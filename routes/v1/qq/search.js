@@ -35,8 +35,24 @@ let search = async (ctx) => {
 
 // 热搜
 let hotSearch = async (ctx) => {
-    let result = await qq_request('https://c.y.qq.com/splcloud/fcgi-bin/gethotkey.fcg?format=json');
-    ctx.rest(result.data);
+    if (ctx.request.method === 'GET') {
+        var from = ctx.request.query.from || 'pc';
+    } else if (ctx.request.method === 'POST') {
+        var from = ctx.request.body.from || 'pc';
+    }
+
+    if (from === 'web') {
+        var result = (await qq_request('https://c.y.qq.com/splcloud/fcgi-bin/gethotkey.fcg?format=json')).data;
+    } else if (from === 'pc') {
+        let html = await qq_request('https://i.y.qq.com/n2/m/index.html');
+
+        let rule = /<script>window.__INIT_DATA__=(.*?)\<\/script>/;
+        
+        let arr = rule.exec(html.data);
+        var result = JSON.parse(arr[1]).homeData.hotList;
+    }
+    ctx.rest(result);
+    result = null;
 }
 
 // 搜索建议
