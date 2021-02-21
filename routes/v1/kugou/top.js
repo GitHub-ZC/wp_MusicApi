@@ -45,6 +45,9 @@ let top = async (ctx) => {
 let topCategory = async (ctx) => {
     let result = await kugou_request('http://mobilecdnbj.kugou.com/api/v3/rank/list?version=9108&plat=0&showtype=2&parentid=0&apiver=6&area_code=1&withsong=1');
 
+    result.data.data.info.splice(2, 2);
+    result.data.data.total = 31;
+
     ctx.rest(result.data);
 }
 
