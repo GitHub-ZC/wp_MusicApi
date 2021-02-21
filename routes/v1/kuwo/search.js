@@ -48,6 +48,7 @@ let hotSearch = async (ctx) => {
     }
 
     ctx.rest(result.data);
+    result = null;
 }
 
 let suggestSearch = async (ctx) => {
