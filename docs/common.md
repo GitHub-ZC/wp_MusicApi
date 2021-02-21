@@ -13,7 +13,7 @@ $ npm install
 ## 运行
 
 ```shell
-$ node start
+$ npm start
 ```
 
 > 默认端口 5000 需要更改启动端口的可以在 __setting.js__ 文件中设置

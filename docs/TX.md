@@ -32,7 +32,9 @@
 
 接口：`/v1/qq/hotSearch`
 
-说明：调用此接口，默认会进行缓存处理
+可选参数：`from` 默认 `pc`, 可选值 `pc ` 和 `web`
+
+说明：pc可以获取更加详细的热搜内容，web获取的数据比较少
 
 示例：[/v1/qq/hotSearch](http://iecoxe.top:5000/v1/qq/hotSearch)
 

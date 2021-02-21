@@ -8,3 +8,4 @@
     * [酷我音乐](KW.md "wp_MusicApi 音乐接口 酷我音乐")
     * [酷狗音乐](KG.md "wp_MusicApi 音乐接口 酷狗音乐")
 * 其他接口
+    * [拾荒者API](scavengers.md "wp_MusicApi 拾荒者")
