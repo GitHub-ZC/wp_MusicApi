@@ -10,7 +10,7 @@
 
 ## 公告
 
-网易云接口：[点击跳转](https://binaryify.github.io/NeteaseCloudMusicApi/)
+网易云接口：[点击跳转](https://binaryify.github.io/NeteaseCloudMusicApi/)		（服务器地址：http://iecoxe.top:3000）
 
 基于本接口开发的软件：
 
