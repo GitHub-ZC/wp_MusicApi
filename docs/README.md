@@ -10,6 +10,14 @@
 
 ## 公告
 
+网易云接口：[点击跳转](https://binaryify.github.io/NeteaseCloudMusicApi/)
+
+基于本接口开发的软件：
+
+[wp music Android版](https://blog.iecoxe.top/2021/03/07/7/)
+
+[wp music 电脑版](https://github.com/GitHub-ZC/Wp_music/releases)
+
 
 
 ## 新版特性
