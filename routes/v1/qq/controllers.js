@@ -1,11 +1,11 @@
 const Router = require('koa-router');
 
 const { search, hotSearch, suggestSearch } = require('./search');
-const { song, songInfo } = require('./song');
+const { song } = require('./song');
 const { top, topCategory } = require('./top');
 const { lyric } = require('./lyric');
 const { getcookie, setcookie } = require('./cookie');
-// const { playlist_tagCategory, playlist_Tag, playlist_Info } = require('./playlist');
+const { playlist_Info } = require('./playlist'); /* playlist_tagCategory, playlist_Tag, */
 
 // 新建 咪咕 路由
 const qq = new Router();
@@ -31,7 +31,7 @@ qq.get('/getcookie', getcookie);
 
 // qq.get('/playlist/tagCategory', playlist_tagCategory);
 // qq.get('/playlist/tag', playlist_Tag);
-// qq.get('/playlist/info', playlist_Info);
+qq.get('/playlist/info', playlist_Info);
 
 // // add post method
 qq.post('/setcookie', setcookie);
