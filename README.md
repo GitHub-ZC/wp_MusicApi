@@ -10,6 +10,14 @@
 
 ## 公告
 
+网易云接口：[点击跳转](https://binaryify.github.io/NeteaseCloudMusicApi/)
+
+基于本接口开发的软件：
+
+[wp music Android版](https://blog.iecoxe.top/2021/03/07/7/)
+
+[wp music 电脑版](https://github.com/GitHub-ZC/Wp_music/releases)
+
 
 
 ## 新版特性
@@ -51,6 +59,12 @@ v1.2：新增的咪咕、酷我、QQ的热搜参数，新增`pc`和`web`，更�
 
 
 
+## 友情链接
+
+[拾荒者](https://blog.iecoxe.top)
+
+
+
 ## 捐赠
 
 > 关于捐赠，强求大家耐心看完
@@ -62,6 +76,14 @@ v1.2：新增的咪咕、酷我、QQ的热搜参数，新增`pc`和`web`，更�
 周期性赞助请联系我，你将会得到我的帮助；如果你不喜欢周期性赞助，也可以选择一次性赞助方式：
 
 [支付宝、微信](http://iecoxe.top:90/exceptional.jpg)
+
+
+
+## 捐赠列表
+
+> 以下排名不分先后
+
+感谢 **宇 先生
 
 
 
