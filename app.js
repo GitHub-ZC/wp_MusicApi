@@ -15,6 +15,7 @@ const __Cookie = require('./util/cookie_util');
 
 // 设置qq音乐的cookie
 global.qq_cookie = __Cookie.parse(config.qq_cookie);
+global.migu_cookie = __Cookie.parse(config.migu_cookie);
 
 // 创建一个Koa对象表示web app本身:
 const app = new Koa();

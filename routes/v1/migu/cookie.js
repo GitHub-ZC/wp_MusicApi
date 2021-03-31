@@ -1,4 +1,4 @@
-// const { qq_request } = require("../../../util/qq_request");
+// const { migu_request } = require("../../../util/migu_request");
 const APIError = require("../../../middlewares/rest").APIError;
 
 // 解析cookie
@@ -15,7 +15,7 @@ let setcookie = async (ctx) => {
         throw new APIError('Cookie:data_notfound', 'argument data is not found');
     }
 
-    global.qq_cookie = __Cookie.parse(data);
+    global.migu_cookie = __Cookie.parse(data);
 
     ctx.rest({
         code: '成功',
@@ -27,7 +27,7 @@ let setcookie = async (ctx) => {
 // 获取qq cookie
 let getcookie = async (ctx) => {
    
-    ctx.rest(global.qq_cookie);
+    ctx.rest(global.migu_cookie);
 }
 
 module.exports = {

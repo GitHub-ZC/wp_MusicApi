@@ -27,6 +27,7 @@ let search = async (ctx) => {
 
     // 捕捉服务端解析错误，防止程序退出
     ctx.rest(result.data);
+    result = null;
 
     // try {
     //     ctx.body = JSON.stringify(result.data);

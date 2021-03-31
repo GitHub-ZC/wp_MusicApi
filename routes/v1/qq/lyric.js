@@ -18,6 +18,7 @@ let lyric = async (ctx) => {
     });
     
     ctx.rest(result.data);
+    result = null;
 }
 
 module.exports = {

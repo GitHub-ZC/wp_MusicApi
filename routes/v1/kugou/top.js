@@ -39,6 +39,12 @@ let top = async (ctx) => {
         limit: JSON.parse(limit[1]),
         data: JSON.parse(listData[1])
     });
+
+    result = null;
+    total = null;
+    page = null;
+    limit = null;
+    listData = null;
 }
 
 // 排行榜分类
@@ -49,6 +55,7 @@ let topCategory = async (ctx) => {
     result.data.data.total = 31;
 
     ctx.rest(result.data);
+    result = null;
 }
 
 module.exports = {

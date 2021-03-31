@@ -2,7 +2,7 @@ const { kuwo_request } = require("../../../util/kuwo_request");
 const APIError = require("../../../middlewares/rest").APIError;
 const axios = require('axios');
 
-const { decodeLyric } = require('../../../util/decodeLyric');
+const { decodeKwLyric } = require('../../../util/decodeLyric');
 
 let lyric = async (ctx) => {
     if (ctx.request.method === 'GET') {
@@ -43,7 +43,7 @@ let getLyric = async (rid, isGetLyricx = false) => {
         responseType: 'arraybuffer'
     });
 
-    let base64Data = await decodeLyric({ lrcBase64: lyric.data.toString('base64'), isGetLyricx });
+    let base64Data = await decodeKwLyric({ lrcBase64: lyric.data.toString('base64'), isGetLyricx });
     return Buffer.from(base64Data, 'base64').toString();
 }
 

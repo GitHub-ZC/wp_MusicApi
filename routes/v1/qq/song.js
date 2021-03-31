@@ -56,6 +56,7 @@ let song = async (ctx) => {
         code: "成功"
     });
     // ctx.rest(result.data);
+    result = null;
 }
 
 
