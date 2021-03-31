@@ -87,7 +87,7 @@ let search = async (ctx) => {
 
     // 捕捉服务端解析错误，防止程序退出
     ctx.rest(result.data);
-
+    result = null;
 }
 
 // 热搜
@@ -126,7 +126,7 @@ let suggestSearch = async (ctx) => {
         _: 1609506029431
     });
     ctx.rest(result.data);
-    
+    result = null;
 }
 
 module.exports = {

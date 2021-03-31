@@ -1,6 +1,7 @@
 
 // 配置文件
 module.exports = {
+    migu_cookie: 'WT_FPC=id=26b591d159ccb9db45c1612840016398:lv=1617166607084:ss=1617166393661; migu_cookie_id=25e83caa-5578-43eb-8d0c-5e5a0b179d47-n41616673107345; migu_music_status=true; migu_music_uid=91226204734; migu_music_avatar=; migu_music_nickname=%E5%92%AA%E5%92%95%E7%94%A8%E6%88%B7; migu_music_level=0; migu_music_credit_level=1; migu_music_platinum=0; migu_music_msisdn=15609665675; migu_music_email=; migu_music_passid=423322612961323579; migu_music_sid=s%3AkgVJ6LXk1UXYOBKj_hZeQYS50gaMY41X.kStBVkuYzeY12O6mTRXCFW6U30pmTMfoV1LqdipPnfY; player_stop_open=1; playlist_adding=1; addplaylist_has=1; audioplayer_new=1; playlist_change=0; add_play_now=1; mg_uem_user_id_9fbe6599400e43a4a58700a822fd57f8=c4398178-8c0e-4f3c-a696-d81e00c4ab7d; mg_uem_session_id_9fbe6599400e43a4a58700a822fd57f8=fb163c22-3588-4567-ae9b-d66c115b684d; audioplayer_open=0; audioplayer_exist=1',
     qq_cookie: 'yqq_stat=0; pgv_info=ssid=s1520392; ts_last=y.qq.com/portal/player.html; pgv_pvid=1233495754; ts_uid=5486601780; pgv_pvi=4007713792; pgv_si=s6654436352; userAction=1; _qpsvr_localtk=0.8025676546673662; yq_index=0; yplayer_open=1; player_exist=1; qqmusic_fromtag=66',
     port: '5000'
 }

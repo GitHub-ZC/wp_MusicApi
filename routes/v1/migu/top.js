@@ -40,10 +40,12 @@ let top = async (ctx) => {
         // ctx.body = JSON.stringify(result.data);
         let arr = rule.exec(result.data);
         ctx.rest(arr[1]);
+        arr = null;
     } catch (error) {
         throw new APIError("Top:parse_error", "Json parse error");
     }
-    ctx.type = 'application/json';
+    result = null;
+    // ctx.type = 'application/json';
 }
 
 // 排行榜分类
@@ -156,6 +158,7 @@ let topCategory = async (ctx) => {
     };
 
     ctx.rest(topList);
+    topList = null;
     // try {
     //     ctx.body = JSON.stringify(topList);
     // } catch (error) {

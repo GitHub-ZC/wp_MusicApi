@@ -1,4 +1,4 @@
-const { qq_request } = require("../../../util/qq_request");
+// const { qq_request } = require("../../../util/qq_request");
 const APIError = require("../../../middlewares/rest").APIError;
 
 // 解析cookie

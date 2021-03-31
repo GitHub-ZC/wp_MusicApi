@@ -9,7 +9,7 @@ let song = async (ctx) => {
     //     cid = ctx.request.body.cid || '69910406417',
     //     br = ctx.request.body.br || '1';
     if (ctx.request.method === 'GET') {
-        var cid = ctx.request.query.cid || '';
+        var cid = ctx.request.query.cid || '69910406417';
         var br = ctx.request.query.br || '1';
     } else if (ctx.request.method === 'POST') {
         var cid = ctx.request.body.cid || '69910406417';
@@ -41,6 +41,7 @@ let song = async (ctx) => {
     // 捕获序列化json出错，防止程序异常退出
     
     ctx.rest(result.data);
+    result = null;
     // try {
     //     ctx.body = JSON.stringify(result.data);
     // } catch (error) {

@@ -6,6 +6,8 @@ const { lyric } = require('./lyric');
 const { top, topCategory } = require('./top');
 const { singer_Info, singer_songList } = require('./singer');
 const { playList_info } = require('./playlist');
+const { getcookie, setcookie } = require('./cookie');
+
 
 // 新建 咪咕 路由
 const migu = new Router();
@@ -28,7 +30,11 @@ migu.get('/singer/songList', singer_songList);
 
 migu.get('/playlist/info', playList_info);
 
+migu.get('/getcookie', getcookie);
+
 // add post method
 migu.post('/song', song);
+// // add post method
+migu.post('/setcookie', setcookie);
 
 module.exports = migu;
