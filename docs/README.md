@@ -2,7 +2,7 @@
 
 
 
-![](https://img.shields.io/badge/最新版本-v1.1-green)
+![](https://img.shields.io/badge/最新版本-v1.3-green)
 
 [![](https://img.shields.io/badge/QQ群1-922193759-green)](https://jq.qq.com/?_wv=1027&k=3USa76OC)
 
