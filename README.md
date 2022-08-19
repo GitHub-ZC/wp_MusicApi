@@ -13,6 +13,8 @@
 
 ## 公告
 
+文档地址：[文档](https://github-zc.github.io/wp_MusicApi/)
+
 网易云接口：[点击跳转](https://binaryify.github.io/NeteaseCloudMusicApi/)		（服务器地址：http://iecoxe.top:3000 ）
 
 个人博客CSDN：[CSDN地址](https://blog.csdn.net/weixin_44358443?type=blog)
@@ -94,7 +96,7 @@ v1.3:  维护所有失效接口，新增网易播放接口以及Cookie上传，�
 
 > 以下排名不分先后
 
-特别感谢 郑小超 女士
+特别感谢 **超 女士
 
 感谢 **宇 先生
 
