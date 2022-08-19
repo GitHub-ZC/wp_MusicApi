@@ -1,8 +1,9 @@
 const { kugou_request } = require("../../../util/kugou_request");
 const APIError = require("../../../middlewares/rest").APIError;
+const { MD5 } = require('../../../util/MD5');
 
 // 第三方加密库
-const cryptoJs = require('crypto-js');
+// const cryptoJs = require('crypto-js');
 
 // kugou music search api
 // 可用的 search api
@@ -21,57 +22,94 @@ let search = async (ctx) => {
         // var type = ctx.request.body.type || '2';
     }
 
-    // 一套神奇的加密环节
+    const cacheData = global.cache.get(ctx.request.url);
+    if (cacheData) {
+        ctx.rest(cacheData);
+        return;
+    }
+
+    /** 第二旧版 */
+    //一套神奇的加密环节
     let k = (new Date).getTime();
-    let o = ["NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt",
-                "bitrate=0",
-                // "callback=callback123",
-                `clienttime=${k}`,
-                "clientver=2000",
-                "dfid=-",
-                "inputtype=0",
-                "iscorrection=1",
-                "isfuzzy=0",
-                `keyword=${key}`,
-                `mid=${k}`,
-                `page=${offset}`,
-                `pagesize=${limit}`,
-                "platform=WebFilter",
-                "privilege_filter=0",
-                "srcappid=2919",
-                "tag=em",
-                "userid=-1",
-                `uuid=${k}`,
-                "NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt"];
-        
-    let signature = cryptoJs.MD5(o.join(""));
+    // let o = ["NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt",
+    //     "bitrate=0",
+    //     // "callback=callback123",
+    //     `clienttime=${k}`,
+    //     "clientver=2000",
+    //     "dfid=-",
+    //     "inputtype=0",
+    //     "iscorrection=1",
+    //     "isfuzzy=0",
+    //     `keyword=${key}`,
+    //     `mid=${k}`,
+    //     `page=${offset}`,
+    //     `pagesize=${limit}`,
+    //     "platform=WebFilter",
+    //     "privilege_filter=0",
+    //     "srcappid=2919",
+    //     // "tag=em",
+    //     "userid=0",
+    //     `uuid=${k}`,
+    //     "NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt"];
+
+    let o = [
+        "NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt",
+        "bitrate=0",
+        // "callback=callback123",
+        `clienttime=${k}`,
+        "clientver=2000",
+        "dfid=-",
+        "filter=10",
+        "inputtype=0",
+        "iscorrection=1",
+        "isfuzzy=0",
+        `keyword=${key}`,
+        `mid=${k}`,
+        `page=${offset.trim()}`,
+        `pagesize=${limit.trim()}`,
+        "platform=WebFilter",
+        "privilege_filter=0",
+        "srcappid=2919",
+        "token=",
+        "userid=0",
+        `uuid=${k}`,
+        "NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt"
+    ]
+
+    let signature = MD5(o.join(""));
+    // let signature = cryptoJs.MD5(o.join(""));
     // 加密结束
     // console.log(signature);
     // console.log(k);
 
-    let result = await kugou_request("https://complexsearch.kugou.com/v2/search/song", {
-        // callback: 'callback123',
-        keyword: key,
-        page: offset,
-        pagesize: limit,
+    // https://complexsearchretry.kugou.com
+    // https://complexsearch.kugou.com
+    let result = await kugou_request("https://complexsearchretry.kugou.com/v2/search/song", {
         bitrate: 0,
-        isfuzzy: 0,
-        tag: 'em',
-        inputtype: 0,
-        platform: 'WebFilter',
-        userid: -1,
+        // "callback=callback123",
+        clienttime: k,
         clientver: 2000,
+        dfid: '-',
+        filter: 10,
+        inputtype: 0,
         iscorrection: 1,
+        isfuzzy: 0,
+        keyword: key,
+        mid: k,
+        page: offset.trim(),
+        pagesize: limit.trim(),
+        platform: 'WebFilter',
         privilege_filter: 0,
         srcappid: 2919,
-        clienttime: k,
-        mid: k,
+        token: '',
+        userid: 0,
         uuid: k,
-        dfid: '-',
         signature: signature.toString()
     });
+    /** 第二旧版结束 */
 
-    /* wp_musicApi 旧版请求代码 */
+
+    /* wp_musicApi 第一旧版请求代码 */
     // let result = await kugou_request("http://ioscdn.kugou.com/api/v3/search/song", {
     //     keyword: key,
     //     page: offset.trim(),
@@ -85,7 +123,9 @@ let search = async (ctx) => {
     //     sver: 5
     // });
 
-    // 捕捉服务端解析错误，防止程序退出
+    global.cache.set(ctx.request.url, result.data);
+
+
     ctx.rest(result.data);
     result = null;
 }
@@ -98,6 +138,12 @@ let hotSearch = async (ctx) => {
         var from = ctx.request.body.from || 'pc';
     }
 
+    const cacheData = global.cache.get(ctx.request.url);
+    if (cacheData) {
+        ctx.rest(cacheData);
+        return;
+    }
+
     if (from === 'pc') {
         var result = await kugou_request('http://gateway.kugou.com/api/v3/search/hot_tab?signature=ee44edb9d7155821412d220bcaf509dd&appid=1005&clientver=10026&plat=0');
     } else if (from === 'web') {
@@ -106,6 +152,8 @@ let hotSearch = async (ctx) => {
             _: 1609509985634
         });
     }
+
+    global.cache.set(ctx.request.url, result.data);
 
     ctx.rest(result.data);
     result = null;
@@ -127,6 +175,97 @@ let suggestSearch = async (ctx) => {
     });
     ctx.rest(result.data);
     result = null;
+}
+
+const handleResult = (rawData) => {
+    // console.log(rawData)
+    let ids = new Set();
+    const list = [];
+    rawData.forEach(item => {
+        const key = item.audio_id + item.hash;
+        if (ids.has(key)) return;
+        ids.add(key);
+        list.push(filterData(item))
+        for (const childItem of item.group) {
+            const key = item.audio_id + item.hash;
+            if (ids.has(key)) return;
+            ids.add(key);
+            list.push(filterData(childItem));
+        }
+    })
+    return list;
+}
+
+
+let filterData = (rawData) => {
+    const types = [];
+    const _types = {};
+    if (rawData.filesize !== 0) {
+        let size = sizeFormate(rawData.filesize);
+        types.push({ type: '128k', size, hash: rawData.hash })
+        _types['128k'] = {
+            size,
+            hash: rawData.hash,
+        }
+    }
+    if (rawData['320filesize'] !== 0) {
+        let size = sizeFormate(rawData['320filesize']);
+        types.push({ type: '320k', size, hash: rawData['320hash'] });
+        _types['320k'] = {
+            size,
+            hash: rawData['320hash'],
+        }
+    }
+    if (rawData.sqfilesize !== 0) {
+        let size = sizeFormate(rawData.sqfilesize);
+        types.push({ type: 'flac', size, hash: rawData.sqhash });
+        _types.flac = {
+            size,
+            hash: rawData.sqhash,
+        }
+    }
+    return {
+        singer: decodeName(rawData.singername),
+        name: decodeName(rawData.songname),
+        albumName: decodeName(rawData.album_name),
+        albumId: rawData.album_id,
+        songmid: rawData.audio_id,
+        source: 'kg',
+        interval: formatPlayTime(rawData.duration),
+        _interval: rawData.duration,
+        img: null,
+        lrc: null,
+        otherSource: null,
+        hash: rawData.hash,
+        types,
+        _types,
+        typeUrl: {},
+    }
+}
+
+const decodeName = (str = '') => str ? str.replace(/(?:&amp;|&lt;|&gt;|&quot;|&apos;|&#039;)/gm, s => encodeNames[s]) : '';
+
+const sizeFormate = size => {
+    if (!size) return '0 B'
+    let units = ['B', 'KB', 'MB', 'GB', 'TB']
+    let number = Math.floor(Math.log(size) / Math.log(1024))
+    return `${(size / Math.pow(1024, Math.floor(number))).toFixed(2)} ${units[number]}`
+}
+
+const formatPlayTime = time => {
+    let m = parseInt(time / 60)
+    let s = parseInt(time % 60)
+    return m === 0 && s === 0 ? '--/--' : (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s)
+}
+
+
+const encodeNames = {
+    '&amp;': '&',
+    '&lt;': '<',
+    '&gt;': '>',
+    '&quot;': '"',
+    '&apos;': "'",
+    '&#039;': "'",
 }
 
 module.exports = {

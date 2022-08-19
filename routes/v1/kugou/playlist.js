@@ -5,9 +5,17 @@ const APIError = require("../../../middlewares/rest").APIError;
 // 歌单标签分类
 let playlist_tagCategory = async (ctx) => {
 
+    const cacheData = global.cache.get(ctx.request.url);
+    if (cacheData) {
+        ctx.rest(cacheData);
+        return;
+    }
+
     let result = await kugou_request(`http://www2.kugou.kugou.com/yueku/v9/special/getSpecial`, {
         is_smarty: 1
     });
+    
+    global.cache.set(ctx.request.url, result.data);
 
     ctx.rest(result.data);
 }
@@ -27,6 +35,12 @@ let playlist_Tag = async (ctx) => {
         var sortId = ctx.request.body.sortId || '5';
         // var limit = ctx.request.body.limit || '30';
         var offset = ctx.request.body.offset || '1';
+    }
+
+    const cacheData = global.cache.get(ctx.request.url);
+    if (cacheData) {
+        ctx.rest(cacheData);
+        return;
     }
 
     // 歌单 标签 的详细内容
@@ -52,7 +66,7 @@ let playlist_Tag = async (ctx) => {
     //       id: '8',
     //     },
     // ];
-    if (['3', '5', '6', '7', '8'].indexOf(sortId)) {
+    if (!(['3', '5', '6', '7', '8'].includes(sortId))) {
         throw new APIError("Playlist:sort_notfound", "argument sortId not exist in list");
     }
     
@@ -64,6 +78,7 @@ let playlist_Tag = async (ctx) => {
         cdn: 'cdn'
     });
     
+    global.cache.set(ctx.request.url, result.data);
 
     ctx.rest(result.data);
 }
@@ -80,6 +95,12 @@ let playlist_Info = async (ctx) => {
         var pid = ctx.request.body.pid || '3233449';
         // var limit = ctx.request.body.limit || '30';
         // var offset = ctx.request.body.offset || '1';
+    }
+
+    const cacheData = global.cache.get(ctx.request.url);
+    if (cacheData) {
+        ctx.rest(cacheData);
+        return;
     }
 
     // 正则表达式
@@ -101,6 +122,15 @@ let playlist_Info = async (ctx) => {
     // console.log(listInfo[1]);
     // console.log(listData[1]);
 
+    global.cache.set(ctx.request.url, {
+        code: 'success',
+        msg: 'playlist Info',
+        name: listInfo[1] ? listInfo[1] : '',
+        picurl: listInfo[2] ? listInfo[2] : '',
+        listData: listData[1] ? JSON.parse(listData[1]) : null
+        // listDetailLink: JSON.parse(listDetailLink[1])
+    });
+
     ctx.rest({
         code: 'success',
         msg: 'playlist Info',
@@ -111,8 +141,33 @@ let playlist_Info = async (ctx) => {
     })
 }
 
+
+let playlist_list = async (ctx) => {
+    
+    if (ctx.request.method === 'GET') {
+        var offset = ctx.request.query.offset || '1';
+    } else if (ctx.request.method === 'POST') {
+        var offset = ctx.request.body.offset || '1';
+    }
+
+    const cacheData = global.cache.get(ctx.request.url);
+    if (cacheData) {
+        ctx.rest(cacheData);
+        return;
+    }
+
+
+    let result = await kugou_request(`https://m.kugou.com/plist/index?page=${offset.trim()}&json=true`);
+
+    global.cache.set(ctx.request.url, result.data);
+
+    ctx.rest(result.data);
+}
+
+
 module.exports = {
     playlist_tagCategory,
     playlist_Tag,
-    playlist_Info
+    playlist_Info,
+    playlist_list
 }

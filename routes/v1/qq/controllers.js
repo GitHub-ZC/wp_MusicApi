@@ -4,7 +4,7 @@ const { search, hotSearch, suggestSearch } = require('./search');
 const { song } = require('./song');
 const { top, topCategory } = require('./top');
 const { lyric } = require('./lyric');
-const { getcookie, setcookie } = require('./cookie');
+const { getcookie, setcookie, refresh } = require('./cookie');
 const { playlist_Info } = require('./playlist'); /* playlist_tagCategory, playlist_Tag, */
 
 // 新建 咪咕 路由
@@ -25,6 +25,7 @@ qq.get('/top', top);
 qq.get('/topCategory', topCategory);
 
 qq.get('/getcookie', getcookie);
+qq.get('/refresh', refresh);
 
 // qq.get('/singer/info', singer_Info);
 // qq.get('/singer/songList', singer_songList);

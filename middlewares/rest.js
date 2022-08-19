@@ -15,6 +15,7 @@ module.exports = {
                 try {
                     await next();
                 } catch (e) {
+                    // console.log(e);
                     // 返回错误:
                     ctx.response.status = 400;
                     ctx.response.type = 'application/json';

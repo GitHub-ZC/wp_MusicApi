@@ -109,7 +109,15 @@ let lyric = async (ctx) => {
         var hash = ctx.request.body.hash || '2FF4014692AC079A9B8118966C891897';
     }
 
+    const cacheData = global.cache.get(ctx.request.url);
+    if (cacheData) {
+        ctx.rest(cacheData);
+        return;
+    }
+
     let result = await getLyric({ hash });
+
+    global.cache.set(ctx.request.url, result);
 
     ctx.rest(result);
     result = null;

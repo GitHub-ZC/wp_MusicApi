@@ -5,11 +5,18 @@ const APIError = require("../../../middlewares/rest").APIError;
 // 歌单标签分类
 let playlist_tagCategory = async (ctx) => {
 
+    const cacheData = global.cache.get(ctx.request.url);
+    if (cacheData) {
+        ctx.rest(cacheData);
+        return;
+    }
+    
     let result = await kuwo_request(`http://kuwo.cn/api/www/playlist/getTagList`, {
         httpsStatus: 1,
-        reqId: 'afe94031-4c17-11eb-aa45-b7fba8eecac4'
+        reqId: 'fe4ca711-9317-11ec-b143-115a6c5b31c8'
     });
 
+    global.cache.set(ctx.request.url, result.data);
 
     ctx.rest(result.data);
 }
@@ -31,6 +38,12 @@ let playlist_Tag = async (ctx) => {
         var offset = ctx.request.body.offset || '1';
     }
 
+    const cacheData = global.cache.get(ctx.request.url);
+    if (cacheData) {
+        ctx.rest(cacheData);
+        return;
+    }
+
     // 如果flag field value equal one ，不走 最新、最热 歌单分类 路由
     if (flag === '1') {
         var result = await kuwo_request(`http://kuwo.cn/api/pc/classify/playlist/getTagPlayList`, {
@@ -38,7 +51,7 @@ let playlist_Tag = async (ctx) => {
             rn: limit.trim(),
             id: id.trim(),
             httpsStatus: 1,
-            reqId: 'fe738170-4c1c-11eb-af49-1156a1732ca7'
+            reqId: 'fe4ca711-9317-11ec-b143-115a6c5b31c8'
         });
     } else {
         if (order.trim() !== 'new' && order.trim() !== 'hot') {
@@ -49,9 +62,11 @@ let playlist_Tag = async (ctx) => {
             rn: limit.trim(),
             order: order.trim(),
             httpsStatus: 1,
-            reqId: '375c0740-4c1e-11eb-af49-1156a1732ca7'
+            reqId: 'fe4ca711-9317-11ec-b143-115a6c5b31c8'
         })
     }
+    
+    global.cache.set(ctx.request.url, result.data);
 
     ctx.rest(result.data);
 }
@@ -70,6 +85,11 @@ let playlist_Info = async (ctx) => {
         var offset = ctx.request.body.offset || '1';
     }
 
+    const cacheData = global.cache.get(ctx.request.url);
+    if (cacheData) {
+        ctx.rest(cacheData);
+        return;
+    }
 
     let result = await kuwo_request(`http://kuwo.cn/api/www/playlist/playListInfo`, {
         pid: pid.trim(),
@@ -78,6 +98,8 @@ let playlist_Info = async (ctx) => {
         httpsStatus: 1,
         reqId: '71e2f370-4c22-11eb-af49-1156a1732ca7'
     });
+
+    global.cache.set(ctx.request.url, result.data);
 
     ctx.rest(result.data)
 }

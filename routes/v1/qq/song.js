@@ -13,6 +13,13 @@ let song = async (ctx) => {
     }
 
 
+    const cacheData = global.cache.get(ctx.request.url);
+    if (cacheData) {
+        ctx.rest(cacheData);
+        return;
+    }
+
+
     let uin = global.qq_cookie.uin || '0';
 
     let typeMap = {
@@ -49,9 +56,19 @@ let song = async (ctx) => {
     // console.log(result);
     // 捕获序列化json出错，防止程序异常退出
 
+    if(result.data.req_0.data.midurlinfo.length && result.data.req_0.data.midurlinfo[0].purl) {
+        global.cache.set(ctx.request.url, {
+            data: {
+                url: result.data.req_0.data.midurlinfo.length && result.data.req_0.data.midurlinfo[0].purl ? 'https://isure.stream.qqmusic.qq.com/' + result.data.req_0.data.midurlinfo[0].purl : null
+            },
+            code: "成功"
+        });
+    }
+
+
     ctx.rest({
         data: {
-            url: result.data.req_0.data.midurlinfo.length && result.data.req_0.data.midurlinfo[0].purl ? 'https://isure.stream.qqmusic.qq.com/' + result.data.req_0.data.midurlinfo[0].purl : {}
+            url: result.data.req_0.data.midurlinfo.length && result.data.req_0.data.midurlinfo[0].purl ? 'https://isure.stream.qqmusic.qq.com/' + result.data.req_0.data.midurlinfo[0].purl : null
         },
         code: "成功"
     });

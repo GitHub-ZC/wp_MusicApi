@@ -14,6 +14,12 @@ let top = async (ctx) => {
         var offset = ctx.request.body.offset || '1';
     }
 
+    const cacheData = global.cache.get(ctx.request.url);
+    if (cacheData) {
+        ctx.rest(cacheData);
+        return;
+    }
+
     // 酷狗 leaderboard 接口走爬虫 以下是正则表达式
     let regExps =  {
         total: /total: '(\d+)',/,
@@ -29,6 +35,16 @@ let top = async (ctx) => {
     let page =  regExps.page.exec(result.data);
     let limit = regExps.limit.exec(result.data);
     let listData = regExps.listData.exec(result.data);
+
+    global.cache.set(ctx.request.url, {
+        code: 'success',
+        msg: 'leaderboard',
+        total: JSON.parse(total[1]),
+        page: JSON.parse(page[1]),
+        limit: JSON.parse(limit[1]),
+        data: JSON.parse(listData[1])
+    }, 3600);
+
 
     // 返回新数据，自己拼接的json数据
     ctx.rest({
@@ -49,10 +65,18 @@ let top = async (ctx) => {
 
 // 排行榜分类
 let topCategory = async (ctx) => {
+    const cacheData = global.cache.get(ctx.request.url);
+    if (cacheData) {
+        ctx.rest(cacheData);
+        return;
+    }
+
     let result = await kugou_request('http://mobilecdnbj.kugou.com/api/v3/rank/list?version=9108&plat=0&showtype=2&parentid=0&apiver=6&area_code=1&withsong=1');
 
     result.data.data.info.splice(2, 2);
     result.data.data.total = 31;
+
+    global.cache.set(ctx.request.url, result.data, 3600);
 
     ctx.rest(result.data);
     result = null;

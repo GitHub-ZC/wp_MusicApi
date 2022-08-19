@@ -10,9 +10,18 @@ let lyric = async (ctx) => {
         var cid = ctx.request.body.cid || '';
     }
 
+    const cacheData = global.cache.get(ctx.request.url);
+    if (cacheData) {
+        ctx.rest(cacheData);
+        return;
+    }
+
+    //https://music.migu.cn/v3/api/music/audioPlayer/getLyric
     let result = await migu_request(`https://music.migu.cn/v3/api/music/audioPlayer/getLyric`, {
         copyrightId: cid.trim()
     });
+    
+    global.cache.set(ctx.request.url, result.data);
     
     ctx.rest(result.data);
     // try {

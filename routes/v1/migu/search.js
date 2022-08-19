@@ -17,14 +17,24 @@ let search = async (ctx) => {
         var type = ctx.request.body.type || '2';
     }
 
+
+    const cacheData = global.cache.get(ctx.request.url);
+    if (cacheData) {
+        ctx.rest(cacheData);
+        return;
+    }
+
+    //https://music.migu.cn/v3/search?page=1&type=song&i=4d71f8dd249c45d63975c038ecb938529da8c160&f=html&s=1658066679&c=001002A&keyword=周杰伦&v=3.23.4
     // url = `https://m.music.migu.cn/migu/remoting/scr_search_tag?rows=${limit}&type=${type}&keyword=${key}&pgc=${offset}`;
-    let result = await migu_request('https://m.music.migu.cn/migu/remoting/scr_search_tag', {
+    let result = await migu_request('http://m.music.migu.cn/migu/remoting/scr_search_tag', {
         rows: limit.trim(),
         type: type.trim(),
         keyword: key,
         pgc: offset.trim()
-    });
+    }, 0);
 
+
+    global.cache.set(ctx.request.url, result.data);
     // 捕捉服务端解析错误，防止程序退出
     ctx.rest(result.data);
     result = null;
@@ -42,7 +52,15 @@ let search = async (ctx) => {
 
 // 热搜
 let hotSearch = async (ctx) => {
+    const cacheData = global.cache.get(ctx.request.url);
+    if (cacheData) {
+        ctx.rest(cacheData);
+        return;
+    }
+
     let result = await migu_request('https://music.migu.cn/v3/api/search/hotwords');
+
+    global.cache.set(ctx.request.url, result.data);
     ctx.rest(result.data);
     // try {
     //     ctx.body = JSON.stringify(result.data);

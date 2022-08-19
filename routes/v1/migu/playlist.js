@@ -13,12 +13,19 @@ let playList_info = async (ctx) => {
         var limit = ctx.request.body.limit || '30';
     }
 
+    const cacheData = global.cache.get(ctx.request.url);
+    if (cacheData) {
+        ctx.rest(cacheData);
+        return;
+    }
+
     let result = await migu_request(`https://m.music.migu.cn/migu/remoting/playlistcontents_query_tag`, {
         playListType: 2,
         playListId: playListId.trim(),
         contentCount: limit.trim()
     });
 
+    global.cache.set(ctx.request.url, result.data);
 
     ctx.rest(result.data);
 

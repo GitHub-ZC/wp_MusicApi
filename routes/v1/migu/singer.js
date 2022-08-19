@@ -11,9 +11,17 @@ let singer_Info = async (ctx) => {
         var artistId = ctx.request.body.artistId || '18196';
     }
 
+    const cacheData = global.cache.get(ctx.request.url);
+    if (cacheData) {
+        ctx.rest(cacheData);
+        return;
+    }
+
     let result = await migu_request(`https://m.music.migu.cn/migu/remoting/cms_artist_detail_tag`, {
         artistId: artistId.trim()
     });
+
+    global.cache.set(ctx.request.url, result.data);
     
     ctx.rest(result.data);
     // try {
@@ -37,6 +45,12 @@ let singer_songList = async (ctx) => {
     } else if (ctx.request.method === 'POST') {
         var artistId = ctx.request.query.artistId || '112';
         var offset = ctx.request.body.offset || '1';
+    }
+
+    const cacheData = global.cache.get(ctx.request.url);
+    if (cacheData) {
+        ctx.rest(cacheData);
+        return;
     }
 
     let result = await migu_request(`https://music.migu.cn/v3/music/artist/${artistId.trim()}/song`, {
@@ -65,6 +79,9 @@ let singer_songList = async (ctx) => {
             num: 20,
             songList: songList
         };
+
+        global.cache.set(ctx.request.url, _result);
+
         ctx.body = JSON.stringify(_result);
 
         arr = null;

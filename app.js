@@ -7,15 +7,35 @@ const koaBody = require("koa-body");
 // 异常捕获
 const { restify } = require('./middlewares/rest');
 
+const Cache = require('./util/cache');
+
 const cors = require('koa2-cors');
 
 // 自定义库
 const config = require('./setting');
 const __Cookie = require('./util/cookie_util');
+const { getWYCookie } = require('./l');
 
 // 设置qq音乐的cookie
 global.qq_cookie = __Cookie.parse(config.qq_cookie);
 global.migu_cookie = __Cookie.parse(config.migu_cookie);
+global.kugou_cookie = __Cookie.parse(config.kugou_cookie);
+global.wy_cookie = __Cookie.parse(config.wy_cookie);
+
+global.cache = new Cache();
+
+setInterval(() => {
+    global.cache.clear();
+}, 2000);
+
+//更新网易云cookie
+// setTimeout(() => {
+//     getWYCookie();
+// }, 10 * 1000);
+
+setInterval(() => {
+    getWYCookie();
+}, 1000 * 60 * 60 * 24 * 12);
 
 // 创建一个Koa对象表示web app本身:
 const app = new Koa();
@@ -48,5 +68,6 @@ app.use(koaBody({ multipart: true }));
 app.use(v1.routes());
 
 // 在端口3000监听:
-app.listen(config.port);
-console.log('app started at url http://localhost:5000 ...');
+app.listen(config.port, () => {
+    console.log('app started at url http://localhost:5000 ...');
+});

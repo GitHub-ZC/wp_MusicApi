@@ -10,6 +10,12 @@ let playlist_Info = async (ctx) => {
         var pid = ctx.request.body.pid || '';
     }
 
+    const cacheData = global.cache.get(ctx.request.url);
+    if (cacheData) {
+        ctx.rest(cacheData);
+        return;
+    }
+
     if (pid.length === 0) {
         throw new APIError("QQ_playlist", "pid not found");
     }
@@ -21,8 +27,11 @@ let playlist_Info = async (ctx) => {
         loginUin: 0,
         format: 'json'
     });
+
+    global.cache.set(ctx.request.url, result.data);
     
     ctx.rest(result.data);
+    result = null;
 }
 
 module.exports = {

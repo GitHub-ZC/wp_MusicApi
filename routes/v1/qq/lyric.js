@@ -10,12 +10,20 @@ let lyric = async (ctx) => {
         var mid = ctx.request.body.mid || '004O1DHG4MjYOi';
     }
 
+    const cacheData = global.cache.get(ctx.request.url);
+    if (cacheData) {
+        ctx.rest(cacheData);
+        return;
+    }
+
     let result = await qq_request(`https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg`, {
         songmid: mid.trim(),
         format: 'json',
         nobase64: 1,
         g_tk: 5381
     });
+
+    global.cache.set(ctx.request.url, result.data);
     
     ctx.rest(result.data);
     result = null;
