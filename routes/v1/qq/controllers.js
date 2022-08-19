@@ -6,6 +6,7 @@ const { top, topCategory } = require('./top');
 const { lyric } = require('./lyric');
 const { getcookie, setcookie, refresh } = require('./cookie');
 const { playlist_Info } = require('./playlist'); /* playlist_tagCategory, playlist_Tag, */
+const { login } = require('./login');
 
 // 新建 咪咕 路由
 const qq = new Router();
@@ -27,6 +28,7 @@ qq.get('/topCategory', topCategory);
 qq.get('/getcookie', getcookie);
 qq.get('/refresh', refresh);
 
+qq.get('/login', login);
 // qq.get('/singer/info', singer_Info);
 // qq.get('/singer/songList', singer_songList);
 
@@ -35,6 +37,7 @@ qq.get('/refresh', refresh);
 qq.get('/playlist/info', playlist_Info);
 
 // // add post method
+qq.post('/login', login);
 qq.post('/setcookie', setcookie);
 
 module.exports = qq;
