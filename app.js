@@ -24,6 +24,7 @@ global.wy_cookie = __Cookie.parse(config.wy_cookie);
 
 global.cache = new Cache();
 
+
 setInterval(() => {
     global.cache.clear();
 }, 2000);
