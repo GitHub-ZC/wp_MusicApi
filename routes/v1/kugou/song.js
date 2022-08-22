@@ -22,20 +22,22 @@ let song = async (ctx) => {
     }
 
 
+    // https://wwwapi.kugou.com/yy/index.php?r=play/getdata&hash=070248CD678149DDDFE5388A43BF1690&mid=0e80d32d772ad376377c68a2708ac92d&album_id=56495618
+    // https://wwwapi.kugou.com/yy/index.php?r=play/getdata&hash=7E9BDD9E6F442397942B5E7B7916BAB7&mid=0e80d32d772ad376377c68a2708ac92d&album_id=56495618
     //新的url https://wwwapi.kugou.com/yy/index.php?r=play/getdata&hash=7E9BDD9E6F442397942B5E7B7916BAB7&mid=0e80d32d772ad376377c68a2708ac92d&album_id=56495618
     let result = await kugou_request('https://wwwapi.kugou.com/yy/index.php', {
         r: 'play/getdata',
         hash: hash.trim(),
         mid: global.kugou_cookie.mid ? global.kugou_cookie.mid : mid(),
-        album_id: aid.trim(),
+        album_id: aid.trim()
         // album_audio_id: album_audio_id.trim(),
-        appid: 1014,
-        platid: 4,
-        '_': Date.now(),
-        dfid: global.kugou_cookie.dfid ? global.kugou_cookie.dfid : global.kugou_cookie.kg_dfid
-    }, 0);
+        // appid: 1014,
+        // platid: 4,
+        // '_': Date.now(),
+        // dfid: global.kugou_cookie.dfid ? global.kugou_cookie.dfid : global.kugou_cookie.kg_dfid
+    }, 1);
 
-    if(result.data.err_code.toString() === '30020') {
+    if(result.data.err_code.toString() == '30020' || result.data.err_code.toString() == '20010') {
         global.kugou_cookie = '';
         throw new APIError("Cookie:notfound", "Please set cookie")
     }

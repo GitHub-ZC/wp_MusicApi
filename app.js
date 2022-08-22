@@ -27,7 +27,7 @@ global.cache = new Cache();
 
 setInterval(() => {
     global.cache.clear();
-}, 2000);
+}, 3000);
 
 //更新网易云cookie
 // setTimeout(() => {
