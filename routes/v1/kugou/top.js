@@ -14,6 +14,7 @@ let top = async (ctx) => {
         var offset = ctx.request.body.offset || '1';
     }
 
+    // 判断是否有缓存
     const cacheData = global.cache.get(ctx.request.url);
     if (cacheData) {
         ctx.rest(cacheData);
@@ -28,6 +29,7 @@ let top = async (ctx) => {
         listData: /global\.features = (\[.+\]);/,
     };
 
+    // 请求官方接口
     let result = await kugou_request(`http://www2.kugou.kugou.com/yueku/v9/rank/home/${offset}-${topId}.html`);
 
     // 正则匹配
@@ -36,6 +38,7 @@ let top = async (ctx) => {
     let limit = regExps.limit.exec(result.data);
     let listData = regExps.listData.exec(result.data);
 
+    // 设置缓存数据
     global.cache.set(ctx.request.url, {
         code: 'success',
         msg: 'leaderboard',
@@ -56,6 +59,7 @@ let top = async (ctx) => {
         data: JSON.parse(listData[1])
     });
 
+    // 防止内存泄露，基本没关系，多此一举
     result = null;
     total = null;
     page = null;
@@ -71,17 +75,22 @@ let topCategory = async (ctx) => {
         return;
     }
 
+    // 请求官网接口
     let result = await kugou_request('http://mobilecdnbj.kugou.com/api/v3/rank/list?version=9108&plat=0&showtype=2&parentid=0&apiver=6&area_code=1&withsong=1');
 
+    // 处理数据
     result.data.data.info.splice(2, 2);
     result.data.data.total = 31;
 
+    // 设置缓存
     global.cache.set(ctx.request.url, result.data, 3600);
 
+    // 接口返回数据
     ctx.rest(result.data);
     result = null;
 }
 
+// 导出函数
 module.exports = {
     top,
     topCategory

@@ -2,6 +2,11 @@ window=global;
 
 window.xjb=null;
 
+
+
+/**
+ * 当前废除使用
+ */
 !function(e) {
     function t(t) {
         for (var n, a, c = t[0], i = t[1], d = t[2], l = 0, s = []; l < c.length; l++)

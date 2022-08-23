@@ -2,6 +2,13 @@ const axios = require('axios');
 const { APIError } = require('../middlewares/rest');
 const __Cookie = require('./cookie_util');
 
+/**
+ * 酷狗的请求函数
+ * @param {*} url 
+ * @param {*} _params 
+ * @param {*} flag 
+ * @returns 
+ */
 let kugou_request = async (url, _params, flag = 1) => {
     let result = {};
     try {

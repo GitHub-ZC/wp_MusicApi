@@ -7,11 +7,14 @@ const { lyric } = require('./lyric');
 const { playlist_tagCategory, playlist_Tag, playlist_Info, playlist_list } = require('./playlist');
 const { setcookie, getcookie } = require('./cookie');
 
-// 新建 咪咕 路由
+
+
+/** 
+ * 新建咪咕路由，配置url映射 
+*/
 const kugou = new Router();
 
 // add get method
-
 kugou.get('/search', search);
 kugou.get('/hotSearch', hotSearch);
 kugou.get('/suggestSearch', suggestSearch);
@@ -33,6 +36,10 @@ kugou.get('/playlist/info', playlist_Info);
 kugou.get('/playlist/list', playlist_list);
 
 kugou.get('/getcookie', getcookie);
+
+
+
+
 // // add post method
 kugou.post('/setcookie', setcookie);
 

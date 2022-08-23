@@ -12,6 +12,7 @@ let setcookie = async (ctx) => {
         throw new APIError('Cookie:data_notfound', 'argument data is not found');
     }
 
+    // 利用global全局变量保存 cookie
     global.wy_cookie = __Cookie.parse(data);
     // console.log(global.qq_cookie);
 

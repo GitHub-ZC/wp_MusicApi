@@ -3,7 +3,12 @@ const { default: axios } = require("axios");
 const qs = require('qs');
 const __Cookie = require('./cookie_util');
 
-
+/**
+ * QQ 扫码登陆 的逆向
+ * @param {*} e 
+ * @param {*} cookie 
+ * @returns 
+ */
 function f(e, cookie) {
     var t, n = 5381;
     if (t = !e ? s("qqmusic_key", cookie) || s("p_skey", cookie) || s("skey", cookie) || s("p_lskey", cookie) || s("lskey", cookie) : s("skey", cookie) || s("qqmusic_key", cookie))

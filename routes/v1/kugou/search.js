@@ -22,6 +22,7 @@ let search = async (ctx) => {
         // var type = ctx.request.body.type || '2';
     }
 
+    // 判断是否缓存数据
     const cacheData = global.cache.get(ctx.request.url);
     if (cacheData) {
         ctx.rest(cacheData);
@@ -123,6 +124,7 @@ let search = async (ctx) => {
     //     sver: 5
     // });
 
+    // 设置缓存
     global.cache.set(ctx.request.url, result.data);
 
 

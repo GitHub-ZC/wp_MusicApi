@@ -15,6 +15,7 @@ let song = async (ctx) => {
         // var br = ctx.request.body.br || '320';
     }
 
+    // 判断是否有缓存数据
     const cacheData = global.cache.get(ctx.request.url);
     if (cacheData) {
         ctx.rest(cacheData);
@@ -37,6 +38,7 @@ let song = async (ctx) => {
         // dfid: global.kugou_cookie.dfid ? global.kugou_cookie.dfid : global.kugou_cookie.kg_dfid
     }, 1);
 
+    // 如果返回一下状态码 表示失败
     if(result.data.err_code.toString() == '30020' || result.data.err_code.toString() == '20010') {
         global.kugou_cookie = '';
         throw new APIError("Cookie:notfound", "Please set cookie")
@@ -47,8 +49,10 @@ let song = async (ctx) => {
         throw new APIError("Song:url_notfound", "Song url is not found")
     }
 
+    // 设置缓存
     global.cache.set(ctx.request.url, result.data);
     
+    // 接口返回数据
     ctx.rest(result.data);
 }
 
@@ -70,6 +74,7 @@ let song = async (ctx) => {
 //     ctx.rest(result.data);
 // }
 
+// 导出函数
 module.exports = {
     song
     // songInfo

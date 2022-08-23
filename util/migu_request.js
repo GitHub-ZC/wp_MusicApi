@@ -2,6 +2,14 @@ const axios = require('axios');
 const APIError = require('../middlewares/rest').APIError;
 const __Cookie = require('./cookie_util');
 
+
+/**
+ * 统一的数据请求函数 咪咕
+ * @param {*} url 
+ * @param {*} _params 
+ * @param {*} flag 
+ * @returns 
+ */
 let migu_request = async (url, _params, flag = 1) => {
     //console.log(url)
     let result = {};

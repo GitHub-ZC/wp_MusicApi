@@ -1,5 +1,8 @@
 var CryptoJS = require("crypto-js");
 
+/**
+ * 网易云接口的加密方式
+ */
 var emj = {
     "色": "00e0b",
     "流感": "509f6",

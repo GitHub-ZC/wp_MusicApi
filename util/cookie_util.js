@@ -1,7 +1,7 @@
 const APIError = require("../middlewares/rest").APIError;
 
 module.exports = {
-    // 解析cookie
+    // 解析cookie， 解析字符串类型的cookie，在内存中使用对象来表示
     parse (cookies) {
         // 捕获错误
         try {
@@ -29,6 +29,7 @@ module.exports = {
             throw new APIError('Cookie:parse_error', 'cookie parse error');
         }
     },
+    // 序列化 Cookie， 将内存中的cookie对象，转化成 对应字符串，主要用于 header 中的请求头
     serialization (data) {
 
         let cookie = '';

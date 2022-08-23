@@ -1,5 +1,10 @@
 const { default: axios } = require("axios");
 
+/**
+ * 和项目无关，主要是部署网易云cookie
+ * @param {*} cookie 
+ * @returns 
+ */
 let parseNative = (cookie) => {
     let arr = cookie.split(";;");
     let arr_ = arr.map(e => {

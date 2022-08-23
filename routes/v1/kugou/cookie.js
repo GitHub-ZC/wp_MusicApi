@@ -16,6 +16,7 @@ let setcookie = async (ctx) => {
         throw new APIError('Cookie:data_notfound', 'argument data is not found');
     }
 
+    // 配置全局变量 酷狗 cookie
     global.kugou_cookie = __Cookie.parse(data);
     // console.log(global.qq_cookie);
 

@@ -70,6 +70,7 @@ let playlist_Tag = async (ctx) => {
         throw new APIError("Playlist:sort_notfound", "argument sortId not exist in list");
     }
     
+    // 请求官方接口，得到歌单信息
     var result = await kugou_request(`http://www2.kugou.kugou.com/yueku/v9/special/getSpecial`, {
         p: offset.trim(),
         c: tagid.trim(),
@@ -97,6 +98,7 @@ let playlist_Info = async (ctx) => {
         // var offset = ctx.request.body.offset || '1';
     }
 
+    // 判断数据是否缓存
     const cacheData = global.cache.get(ctx.request.url);
     if (cacheData) {
         ctx.rest(cacheData);
@@ -111,6 +113,7 @@ let playlist_Info = async (ctx) => {
         // listDetailLink: /^.+\/(\d+)\.html(?:\?.*|&.*$|#.*$|$)/s
     };
 
+    // 这个是html 需要使用正则 抓取数据
     let result = await kugou_request(`http://www2.kugou.kugou.com/yueku/v9/special/single/${pid}-6-1084.html`);
 
     // 正则匹配
@@ -122,6 +125,7 @@ let playlist_Info = async (ctx) => {
     // console.log(listInfo[1]);
     // console.log(listData[1]);
 
+    // 设置缓存
     global.cache.set(ctx.request.url, {
         code: 'success',
         msg: 'playlist Info',
@@ -131,6 +135,7 @@ let playlist_Info = async (ctx) => {
         // listDetailLink: JSON.parse(listDetailLink[1])
     });
 
+    // 接口返回数据
     ctx.rest({
         code: 'success',
         msg: 'playlist Info',
@@ -142,6 +147,7 @@ let playlist_Info = async (ctx) => {
 }
 
 
+// 歌单广场，随机返回30个歌单
 let playlist_list = async (ctx) => {
     
     if (ctx.request.method === 'GET') {
@@ -165,6 +171,7 @@ let playlist_list = async (ctx) => {
 }
 
 
+// 导出数据
 module.exports = {
     playlist_tagCategory,
     playlist_Tag,

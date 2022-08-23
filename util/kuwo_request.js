@@ -2,6 +2,7 @@ const axios = require('axios');
 const { APIError } = require('../middlewares/rest');
 
 /**
+ * 酷我请求函数
  * @author ZC
  * @param {string} url 
  * @param {*} _params 

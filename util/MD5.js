@@ -1,3 +1,8 @@
+/**
+ * md5 加密算法
+ * @param {*} a 
+ * @returns 
+ */
 let MD5 = function (a) {
     function b(a) {
         var b = (a >>> 0).toString(16);

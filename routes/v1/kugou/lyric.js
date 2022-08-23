@@ -9,6 +9,8 @@ const decodeName = (str = '') => str.replace(/(?:&amp;|&lt;|&gt;|&quot;|&apos;|&
 
 const headExp = /^.*\[id:\$\w+\]\n/
 
+
+// 解析得到的歌词
 const parseLyric = str => {
     str = str.replace(/\r/g, '')
     if (headExp.test(str)) str = str.replace(headExp, '')
@@ -50,6 +52,7 @@ const parseLyric = str => {
     }
 }
 
+// 搜索对应的歌词，得到歌词 信息， 配合getLyricDownload 得到歌词
 let searchLyric = async (hash, tryNum = 0) => {
     let result = await axios.get(`http://lyrics.kugou.com/search?ver=1&man=yes&client=pc&hash=${hash}`, {/* &keyword=${encodeURI(name)} */
         headers: {
@@ -72,7 +75,7 @@ let searchLyric = async (hash, tryNum = 0) => {
     return null;
 }
 
-
+// 请求官网歌词接口
 let getLyricDownload = async (id, accessKey, tryNum = 0) => {
     let result = await axios.get(`http://lyrics.kugou.com/download?ver=1&client=pc&id=${id}&accesskey=${accessKey}&fmt=krc&charset=utf8`, {
         headers: {
@@ -100,6 +103,11 @@ let getLyric = async (songInfo, tryNum = 0) => {
     return requestObj
 }
 
+/**
+ * @param {*} ctx 
+ * @returns 
+ * 主要是 歌词 请求接口
+ */
 let lyric = async (ctx) => {
     if (ctx.request.method === 'GET') {
         // var name = ctx.request.query.name || '花海';
@@ -109,14 +117,17 @@ let lyric = async (ctx) => {
         var hash = ctx.request.body.hash || '2FF4014692AC079A9B8118966C891897';
     }
 
+    // 判断是否有缓存数据
     const cacheData = global.cache.get(ctx.request.url);
     if (cacheData) {
         ctx.rest(cacheData);
         return;
     }
 
+    // 获取歌词数据
     let result = await getLyric({ hash });
 
+    // 设置缓存
     global.cache.set(ctx.request.url, result);
 
     ctx.rest(result);

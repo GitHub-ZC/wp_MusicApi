@@ -1,7 +1,11 @@
 const APIError = require("../../../middlewares/rest").APIError;
 const axios = require('axios');
 
-
+/**
+ * 失效接口，废弃
+ * @param {*} songInfo 
+ * @returns 
+ */
 let getPic = async (songInfo) => {
 
     if (ctx.request.method === 'GET') {

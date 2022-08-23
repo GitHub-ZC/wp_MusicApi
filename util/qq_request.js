@@ -2,7 +2,12 @@ const axios = require('axios');
 const { APIError } = require('../middlewares/rest');
 const __Cookie = require('./cookie_util');
 
-
+/**
+ * 统一的qq数据请求函数
+ * @param {*} url 
+ * @param {*} _params 
+ * @returns 
+ */
 let qq_request = async (url, _params) => {
     let result = {};
     // console.log(__Cookie.serialization(global.qq_cookie), '!!!');

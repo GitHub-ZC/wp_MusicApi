@@ -1,3 +1,6 @@
+/**
+ * koa 自定义中间件  主要是 设置 请求头  和  java 过滤器类似
+ */
 module.exports = {
     APIError: function (code, message) {
         this.code = code || 'internal:unknown_error';

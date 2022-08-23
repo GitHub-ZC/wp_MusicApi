@@ -6,6 +6,12 @@ const { decodeKwLyric } = require('../../../util/decodeLyric');
 
 const decodeName = (str = '') => str ? str.replace(/(?:&amp;|&lt;|&gt;|&quot;|&apos;|&#039;)/gm, s => encodeNames[s]) : '';
 
+
+/**
+ * 酷我歌词接口
+ * @param {*} ctx 
+ * @returns 
+ */
 let lyric = async (ctx) => {
     if (ctx.request.method === 'GET') {
         var rid = ctx.request.query.rid || '80488731';
@@ -15,12 +21,14 @@ let lyric = async (ctx) => {
         var from = ctx.request.body.from || 'pc';
     }
 
+    // 判断是否有缓存数据
     const cacheData = global.cache.get(ctx.request.url);
     if (cacheData) {
         ctx.rest(cacheData);
         return;
     }
 
+    // 根据参数 from 判断 走哪一个接口
     if (from === 'pc') {
         let lyric_str = await axios.get(`http://m.kuwo.cn/newh5/singles/songinfoandlrc?musicId=${rid.trim()}`);
         
@@ -33,12 +41,14 @@ let lyric = async (ctx) => {
             throw new APIError('KuwoLyric', 'Get lyric failed');
         }
 
+        // 设置缓存
         global.cache.set(ctx.request.url, {
             lyric_str: decodeName(transformLrc(lyric_str.data.data.songinfo, lrcInfo.lrc)),
             tlyric: lrcInfo.lrcT.length ? decodeName(transformLrc(lyric_str.data.data.songinfo, lrcInfo.lrcT)) : ''
         });
 
 
+        // 接口返回数据
         ctx.rest({
             lyric_str: decodeName(transformLrc(lyric_str.data.data.songinfo, lrcInfo.lrc)),
             tlyric: lrcInfo.lrcT.length ? decodeName(transformLrc(lyric_str.data.data.songinfo, lrcInfo.lrcT)) : ''
@@ -59,6 +69,7 @@ let transformLrc = (songinfo, lrclist) => {
     return `[ti:${songinfo.songName}]\n[ar:${songinfo.artist}]\n[al:${songinfo.album}]\n[by:]\n[offset:0]\n${lrclist ? lrclist.map(l => `[${formatTime(l.time)}]${l.lineLyric}\n`).join('') : '暂无歌词'}`
 }
 
+// 格式化时间
 let formatTime = (time) => {
     let m = parseInt(time / 60)
     let s = (time % 60).toFixed(2)

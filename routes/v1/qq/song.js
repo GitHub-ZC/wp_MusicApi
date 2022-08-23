@@ -22,6 +22,7 @@ let song = async (ctx) => {
 
     let uin = global.qq_cookie.uin || '0';
 
+    // 获取歌曲音质的参数类型
     let typeMap = {
         'm4a': {
             's': 'C400',
@@ -52,6 +53,7 @@ let song = async (ctx) => {
     let filename = `"${typeMap[br].s}${mid.trim() + mid.trim()}${typeMap[br].e}"`;
     let mids = `"${mid.trim()}"`;
 
+    // 请求接口 主要看 数据格式
     let result = await qq_request(`https://u.y.qq.com/cgi-bin/musicu.fcg?format=json&data={"req":{"module":"CDN.SrfCdnDispatchServer","method":"GetCdnDispatch","param":{"guid":"658650575","calltype":0,"userip":""}},"req_0":{"module":"vkey.GetVkeyServer","method":"CgiGetVkey","param":{"filename":[${filename}],"guid":"658650575","songmid":[${mids}],"songtype":[0],"uin":"${uin}","loginflag":1,"platform":"20"}},"comm":{"uin":${uin},"format":"json","ct":24,"cv":0}}`);
     // console.log(result);
     // 捕获序列化json出错，防止程序异常退出

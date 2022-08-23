@@ -6,7 +6,7 @@ const { top, topCategory } = require('./top');
 const { lyric } = require('./lyric');
 const { playlist_tagCategory, playlist_Tag, playlist_Info } = require('./playlist');
 
-// 新建 咪咕 路由
+// 新建 酷我 路由
 const kuwo = new Router();
 
 // add get method

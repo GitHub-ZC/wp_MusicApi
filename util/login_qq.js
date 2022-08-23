@@ -1,6 +1,8 @@
 var u = {}, a = {}, s = {}, r = {};
 
-
+/**
+ * qq登录接口的加密步骤
+ */
 (function (e) {
     "use strict";
     var i, r, f, n = (i = 1,
