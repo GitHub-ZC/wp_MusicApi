@@ -1,3 +1,4 @@
+const { default: axios } = require("axios");
 const { kugou_request } = require("../../../util/kugou_request");
 const APIError = require("../../../middlewares/rest").APIError;
 
@@ -8,10 +9,12 @@ let top = async (ctx) => {
         var topId = ctx.request.query.topId || '8888';
         // var limit = ctx.request.query.limit || '30';
         var offset = ctx.request.query.offset || '1';
+        var platform = ctx.request.query.platform || 'web';
     } else if (ctx.request.method === 'POST') {
         var topId = ctx.request.body.topId || '8888';
         // var limit = ctx.request.body.limit || '30';
         var offset = ctx.request.body.offset || '1';
+        var platform = ctx.request.body.platform || 'web';
     }
 
     const cacheData = global.cache.get(ctx.request.url);
@@ -21,46 +24,49 @@ let top = async (ctx) => {
     }
 
     // 酷狗 leaderboard 接口走爬虫 以下是正则表达式
-    let regExps =  {
+    let regExps = {
         total: /total: '(\d+)',/,
         page: /page: '(\d+)',/,
         limit: /pagesize: '(\d+)',/,
         listData: /global\.features = (\[.+\]);/,
     };
 
-    let result = await kugou_request(`http://www2.kugou.kugou.com/yueku/v9/rank/home/${offset}-${topId}.html`);
 
-    // 正则匹配
-    let total = regExps.total.exec(result.data);
-    let page =  regExps.page.exec(result.data);
-    let limit = regExps.limit.exec(result.data);
-    let listData = regExps.listData.exec(result.data);
+    let result = null;
+    // 新增pc端 排行榜接口
+    if (platform === 'pc') {
+        result = await axios.post(`http://kmr.service.kugou.com/container/v2/rank_audio`, {"appid":1001,"clientver":"10053","mid":"70a02aad1ce4648e7dca77f2afa7b182","clienttime":1661650645,"key":"f1813b8c45644335d20b5054e255f8c5","area_code":"1","show_video":1,"page":1,"pagesize":500,"rank_id":topId,"rank_cid":topId,"zone":"tx6_gz_kmr"})
+        global.cache.set(ctx.request.url, result.data, 3600);
+        ctx.rest(result.data);
+    } else {
+        result = await kugou_request(`http://www2.kugou.kugou.com/yueku/v9/rank/home/${offset}-${topId}.html`);
 
-    global.cache.set(ctx.request.url, {
-        code: 'success',
-        msg: 'leaderboard',
-        total: JSON.parse(total[1]),
-        page: JSON.parse(page[1]),
-        limit: JSON.parse(limit[1]),
-        data: JSON.parse(listData[1])
-    }, 3600);
+        // 正则匹配
+        let total = regExps.total.exec(result.data);
+        let page = regExps.page.exec(result.data);
+        let limit = regExps.limit.exec(result.data);
+        let listData = regExps.listData.exec(result.data);
+
+        global.cache.set(ctx.request.url, {
+            code: 'success',
+            msg: 'leaderboard',
+            total: JSON.parse(total[1]),
+            page: JSON.parse(page[1]),
+            limit: JSON.parse(limit[1]),
+            data: JSON.parse(listData[1])
+        }, 3600);
 
 
-    // 返回新数据，自己拼接的json数据
-    ctx.rest({
-        code: 'success',
-        msg: 'leaderboard',
-        total: JSON.parse(total[1]),
-        page: JSON.parse(page[1]),
-        limit: JSON.parse(limit[1]),
-        data: JSON.parse(listData[1])
-    });
-
-    result = null;
-    total = null;
-    page = null;
-    limit = null;
-    listData = null;
+        // 返回新数据，自己拼接的json数据
+        ctx.rest({
+            code: 'success',
+            msg: 'leaderboard',
+            total: JSON.parse(total[1]),
+            page: JSON.parse(page[1]),
+            limit: JSON.parse(limit[1]),
+            data: JSON.parse(listData[1])
+        });
+    }
 }
 
 // 排行榜分类
