@@ -2,6 +2,7 @@
 const Koa = require('koa');
 // 注意require('koa-router')返回的是函数:
 const v1 = require('./routes/v1/controllers');
+const index = require('./public/controllers');
 // 解析request的body的功能
 const koaBody = require("koa-body");
 // 异常捕获
@@ -15,6 +16,8 @@ const cors = require('koa2-cors');
 const config = require('./setting');
 const __Cookie = require('./util/cookie_util');
 const { getWYCookie } = require('./l');
+const { default: axios } = require('axios');
+
 
 // 设置qq音乐的cookie
 global.qq_cookie = __Cookie.parse(config.qq_cookie);
@@ -46,10 +49,10 @@ app.use(cors());
 // 对于任何请求，app将调用该异步函数处理请求：
 app.use(async (ctx, next) => {
     // try {
-        const start = new Date().getTime(); // 当前时间
-        await next(); // 调用下一个middleware
-        const ms = new Date().getTime() - start; // 耗费时间
-        console.log(`${ctx.request.method} ${ctx.request.url} ${ctx.status} Time: ${ms}ms`); // 打印耗费时间
+    const start = new Date().getTime(); // 当前时间
+    await next(); // 调用下一个middleware
+    const ms = new Date().getTime() - start; // 耗费时间
+    console.log(`${ctx.request.method} ${ctx.request.url} ${ctx.status} Time: ${ms}ms`); // 打印耗费时间
     // } catch (error) {
     //     ctx.body = JSON.stringify({
     //         error: '服务端内部错误，请联系管理员',
@@ -67,8 +70,22 @@ app.use(restify());
 app.use(koaBody({ multipart: true }));
 // add router middleware:
 app.use(v1.routes());
+app.use(index.routes());
 
-// 在端口3000监听:
-app.listen(config.port, () => {
-    console.log('app started at url http://localhost:5000 ...');
-});
+
+// 查询当前版本号
+axios.get(`https://github-zc.github.io/wp_MusicApi/version.json`).then(res => {
+    let info = JSON.parse(res.data);
+    if (info.version !== config.version) {
+        console.log(`最新版本: ${info.version}, 当前版本: ${config.version}, 请及时更新`);
+    }
+    console.log('成功');
+}).catch(err => {
+    console.log('失败');
+    console.log('版本检验错误，请检查网络或者联系作者');
+}).finally(() => {
+    // 在端口3000监听:
+    app.listen(config.port, () => {
+        console.log('app started at url http://localhost:5000 ...');
+    });
+})

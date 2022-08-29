@@ -67,7 +67,7 @@
 
 可选参数：`cid`  歌曲的copyrightId      默认 `60084600554`
 
-示例：[/v1/migu/lyric?id=60084600554](http://iecoxe.top:5000/v1/migu/lyric?cid=60084600554)
+示例：[/v1/migu/lyric?cid=60084600554](http://iecoxe.top:5000/v1/migu/lyric?cid=60084600554)
 
 
 
