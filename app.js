@@ -74,7 +74,9 @@ app.use(index.routes());
 
 
 // 查询当前版本号
-axios.get(`https://github-zc.github.io/wp_MusicApi/version.json`).then(res => {
+axios.get(`https://github-zc.github.io/wp_MusicApi/version.json`, {
+    timeout: 3000
+}).then(res => {
     if (res.data.version !== config.version) {
         console.log(`最新版本: ${res.data.version}, 当前版本: ${config.version}, 请及时更新`);
     } else if (res.data.version === config.version) {

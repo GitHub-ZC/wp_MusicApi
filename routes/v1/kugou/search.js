@@ -1,9 +1,10 @@
+const { default: axios } = require("axios");
 const { kugou_request } = require("../../../util/kugou_request");
 const APIError = require("../../../middlewares/rest").APIError;
-const { MD5 } = require('../../../util/MD5');
+// const { MD5 } = require('../../../util/MD5');
 
 // 第三方加密库
-// const cryptoJs = require('crypto-js');
+const cryptoJs = require('crypto-js');
 
 // kugou music search api
 // 可用的 search api
@@ -28,9 +29,47 @@ let search = async (ctx) => {
         return;
     }
 
+    /** 第三版 加密算法, Frida 逆向 APK 爬取的接口 */
+    // 生成时间戳
+    let k = Math.round((new Date).getTime() / 1000);
+    // MD5需要加密的字符串
+    let md5_str = `OIlwieks28dk2k092lksi2UIkpappid=1005area_code=1clienttime=${k}clientver=11289dfid=2Bcf0P0e9pGc4AkspX1F5uhPdopicfull=1iscorrection=1keyword=${key}mid=212826578698488017179831213621749832494page=${offset.trim()}pagesize=${limit.trim()}platform=AndroidFilterprivilegefilter=0requestid=3ac94ea8f7e152db1ecf7883c0bc6d44_1sec_aggre=1tag=emtoken=userid=0uuid=4f3e2278033606d95d92efddc0744d9cOIlwieks28dk2k092lksi2UIkp`
+
+    let signature = cryptoJs.MD5(md5_str);
+
+
+    let result = await axios.get("https://gateway.kugou.com/v2/search/song", {
+        params: {
+            userid: 0,
+            area_code: 1,
+            appid: 1005,
+            dopicfull: 1,
+            page: offset.trim(),
+            token: '',
+            privilegefilter: 0,
+            requestid: '3ac94ea8f7e152db1ecf7883c0bc6d44_1',
+            signature: signature.toString(),
+            pagesize: limit.trim(),
+            clienttime: k,
+            sec_aggre: 1,
+            iscorrection: 1,
+            uuid: '4f3e2278033606d95d92efddc0744d9c',
+            mid: '212826578698488017179831213621749832494',
+            keyword: key,
+            dfid: '2Bcf0P0e9pGc4AkspX1F5uhP',
+            clientver: 11289,
+            platform: 'AndroidFilter',
+            tag: 'em'
+        },
+        headers: {
+            'x-router': 'complexsearch.kugou.com'
+        }
+    });
+    /** 第三版加密结束 */
+
     /** 第二旧版 */
     //一套神奇的加密环节
-    let k = (new Date).getTime();
+    // let k = (new Date).getTime();
     // let o = ["NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt",
     //     "bitrate=0",
     //     // "callback=callback123",
@@ -52,31 +91,31 @@ let search = async (ctx) => {
     //     `uuid=${k}`,
     //     "NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt"];
 
-    let o = [
-        "NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt",
-        "bitrate=0",
-        // "callback=callback123",
-        `clienttime=${k}`,
-        "clientver=2000",
-        "dfid=-",
-        "filter=10",
-        "inputtype=0",
-        "iscorrection=1",
-        "isfuzzy=0",
-        `keyword=${key}`,
-        `mid=${k}`,
-        `page=${offset.trim()}`,
-        `pagesize=${limit.trim()}`,
-        "platform=WebFilter",
-        "privilege_filter=0",
-        "srcappid=2919",
-        "token=",
-        "userid=0",
-        `uuid=${k}`,
-        "NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt"
-    ]
+    // let o = [
+    //     "NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt",
+    //     "bitrate=0",
+    //     // "callback=callback123",
+    //     `clienttime=${k}`,
+    //     "clientver=2000",
+    //     "dfid=-",
+    //     "filter=10",
+    //     "inputtype=0",
+    //     "iscorrection=1",
+    //     "isfuzzy=0",
+    //     `keyword=${key}`,
+    //     `mid=${k}`,
+    //     `page=${offset.trim()}`,
+    //     `pagesize=${limit.trim()}`,
+    //     "platform=WebFilter",
+    //     "privilege_filter=0",
+    //     "srcappid=2919",
+    //     "token=",
+    //     "userid=0",
+    //     `uuid=${k}`,
+    //     "NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt"
+    // ]
 
-    let signature = MD5(o.join(""));
+    // let signature = MD5(o.join(""));
     // let signature = cryptoJs.MD5(o.join(""));
     // 加密结束
     // console.log(signature);
@@ -84,28 +123,28 @@ let search = async (ctx) => {
 
     // https://complexsearchretry.kugou.com
     // https://complexsearch.kugou.com
-    let result = await kugou_request("https://complexsearchretry.kugou.com/v2/search/song", {
-        bitrate: 0,
-        // "callback=callback123",
-        clienttime: k,
-        clientver: 2000,
-        dfid: '-',
-        filter: 10,
-        inputtype: 0,
-        iscorrection: 1,
-        isfuzzy: 0,
-        keyword: key,
-        mid: k,
-        page: offset.trim(),
-        pagesize: limit.trim(),
-        platform: 'WebFilter',
-        privilege_filter: 0,
-        srcappid: 2919,
-        token: '',
-        userid: 0,
-        uuid: k,
-        signature: signature.toString()
-    });
+    // let result = await kugou_request("https://complexsearchretry.kugou.com/v2/search/song", {
+    //     bitrate: 0,
+    //     // "callback=callback123",
+    //     clienttime: k,
+    //     clientver: 2000,
+    //     dfid: '-',
+    //     filter: 10,
+    //     inputtype: 0,
+    //     iscorrection: 1,
+    //     isfuzzy: 0,
+    //     keyword: key,
+    //     mid: k,
+    //     page: offset.trim(),
+    //     pagesize: limit.trim(),
+    //     platform: 'WebFilter',
+    //     privilege_filter: 0,
+    //     srcappid: 2919,
+    //     token: '',
+    //     userid: 0,
+    //     uuid: k,
+    //     signature: signature.toString()
+    // });
     /** 第二旧版结束 */
 
 
