@@ -75,13 +75,12 @@ app.use(index.routes());
 
 // 查询当前版本号
 axios.get(`https://github-zc.github.io/wp_MusicApi/version.json`).then(res => {
-    let info = JSON.parse(res.data);
-    if (info.version !== config.version) {
-        console.log(`最新版本: ${info.version}, 当前版本: ${config.version}, 请及时更新`);
+    if (res.data.version !== config.version) {
+        console.log(`最新版本: ${res.data.version}, 当前版本: ${config.version}, 请及时更新`);
+    } else if (res.data.version === config.version) {
+        console.log(`最新版本: ${res.data.version}, 当前版本: ${config.version}, 无需更新`);
     }
-    console.log('成功');
 }).catch(err => {
-    console.log('失败');
     console.log('版本检验错误，请检查网络或者联系作者');
 }).finally(() => {
     // 在端口3000监听:
