@@ -29,6 +29,129 @@ let search = async (ctx) => {
         return;
     }
 
+    /** 第二旧版 */
+    //一套神奇的加密环节
+    let k = (new Date).getTime();
+    // let o = ["NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt",
+    //     "bitrate=0",
+    //     // "callback=callback123",
+    //     `clienttime=${k}`,
+    //     "clientver=2000",
+    //     "dfid=-",
+    //     "inputtype=0",
+    //     "iscorrection=1",
+    //     "isfuzzy=0",
+    //     `keyword=${key}`,
+    //     `mid=${k}`,
+    //     `page=${offset}`,
+    //     `pagesize=${limit}`,
+    //     "platform=WebFilter",
+    //     "privilege_filter=0",
+    //     "srcappid=2919",
+    //     // "tag=em",
+    //     "userid=0",
+    //     `uuid=${k}`,
+    //     "NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt"];
+
+    let o = [
+        "NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt",
+        "bitrate=0",
+        // "callback=callback123",
+        `clienttime=${k}`,
+        "clientver=2000",
+        "dfid=-",
+        "filter=10",
+        "inputtype=0",
+        "iscorrection=1",
+        "isfuzzy=0",
+        `keyword=${key}`,
+        `mid=${k}`,
+        `page=${offset.trim()}`,
+        `pagesize=${limit.trim()}`,
+        "platform=WebFilter",
+        "privilege_filter=0",
+        "srcappid=2919",
+        "token=",
+        "userid=0",
+        `uuid=${k}`,
+        "NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt"
+    ]
+
+    // let signature = MD5(o.join(""));
+    let signature = cryptoJs.MD5(o.join(""));
+    // 加密结束
+    // console.log(signature);
+    // console.log(k);
+
+    // https://complexsearchretry.kugou.com
+    // https://complexsearch.kugou.com
+    let result = await kugou_request("https://complexsearchretry.kugou.com/v2/search/song", {
+        bitrate: 0,
+        // "callback=callback123",
+        clienttime: k,
+        clientver: 2000,
+        dfid: '-',
+        filter: 10,
+        inputtype: 0,
+        iscorrection: 1,
+        isfuzzy: 0,
+        keyword: key,
+        mid: k,
+        page: offset.trim(),
+        pagesize: limit.trim(),
+        platform: 'WebFilter',
+        privilege_filter: 0,
+        srcappid: 2919,
+        token: '',
+        userid: 0,
+        uuid: k,
+        signature: signature.toString()
+    });
+    /** 第二旧版结束 */
+
+
+    /* wp_musicApi 第一旧版请求代码 */
+    // let result = await kugou_request("http://ioscdn.kugou.com/api/v3/search/song", {
+    //     keyword: key,
+    //     page: offset.trim(),
+    //     pagesize: limit.trim(),
+    //     showtype: 10,
+    //     plat: 2,
+    //     version: 7910,
+    //     tag: 1,
+    //     correct: 1,
+    //     privilege: 1,
+    //     sver: 5
+    // });
+
+    global.cache.set(ctx.request.url, result.data);
+
+
+    ctx.rest(result.data);
+    result = null;
+}
+
+
+
+let mobileSearch = async (ctx) => {
+    if (ctx.request.method === 'GET') {
+        var key = ctx.request.query.key || '';
+        var limit = ctx.request.query.limit || '30';
+        var offset = ctx.request.query.offset || '1';
+        // var type = ctx.request.query.type || '2';
+    } else if (ctx.request.method === 'POST') {
+        var key = ctx.request.body.key || '';
+        var limit = ctx.request.body.limit || '30';
+        var offset = ctx.request.body.offset || '1';
+        // var type = ctx.request.body.type || '2';
+    }
+
+    const cacheData = global.cache.get(ctx.request.url);
+    if (cacheData) {
+        ctx.rest(cacheData);
+        return;
+    }
+
     /** 第三版 加密算法, Frida 逆向 APK 爬取的接口 */
     // 生成时间戳
     let k = Math.round((new Date).getTime() / 1000);
@@ -67,107 +190,15 @@ let search = async (ctx) => {
     });
     /** 第三版加密结束 */
 
-    /** 第二旧版 */
-    //一套神奇的加密环节
-    // let k = (new Date).getTime();
-    // let o = ["NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt",
-    //     "bitrate=0",
-    //     // "callback=callback123",
-    //     `clienttime=${k}`,
-    //     "clientver=2000",
-    //     "dfid=-",
-    //     "inputtype=0",
-    //     "iscorrection=1",
-    //     "isfuzzy=0",
-    //     `keyword=${key}`,
-    //     `mid=${k}`,
-    //     `page=${offset}`,
-    //     `pagesize=${limit}`,
-    //     "platform=WebFilter",
-    //     "privilege_filter=0",
-    //     "srcappid=2919",
-    //     // "tag=em",
-    //     "userid=0",
-    //     `uuid=${k}`,
-    //     "NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt"];
-
-    // let o = [
-    //     "NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt",
-    //     "bitrate=0",
-    //     // "callback=callback123",
-    //     `clienttime=${k}`,
-    //     "clientver=2000",
-    //     "dfid=-",
-    //     "filter=10",
-    //     "inputtype=0",
-    //     "iscorrection=1",
-    //     "isfuzzy=0",
-    //     `keyword=${key}`,
-    //     `mid=${k}`,
-    //     `page=${offset.trim()}`,
-    //     `pagesize=${limit.trim()}`,
-    //     "platform=WebFilter",
-    //     "privilege_filter=0",
-    //     "srcappid=2919",
-    //     "token=",
-    //     "userid=0",
-    //     `uuid=${k}`,
-    //     "NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt"
-    // ]
-
-    // let signature = MD5(o.join(""));
-    // let signature = cryptoJs.MD5(o.join(""));
-    // 加密结束
-    // console.log(signature);
-    // console.log(k);
-
-    // https://complexsearchretry.kugou.com
-    // https://complexsearch.kugou.com
-    // let result = await kugou_request("https://complexsearchretry.kugou.com/v2/search/song", {
-    //     bitrate: 0,
-    //     // "callback=callback123",
-    //     clienttime: k,
-    //     clientver: 2000,
-    //     dfid: '-',
-    //     filter: 10,
-    //     inputtype: 0,
-    //     iscorrection: 1,
-    //     isfuzzy: 0,
-    //     keyword: key,
-    //     mid: k,
-    //     page: offset.trim(),
-    //     pagesize: limit.trim(),
-    //     platform: 'WebFilter',
-    //     privilege_filter: 0,
-    //     srcappid: 2919,
-    //     token: '',
-    //     userid: 0,
-    //     uuid: k,
-    //     signature: signature.toString()
-    // });
-    /** 第二旧版结束 */
-
-
-    /* wp_musicApi 第一旧版请求代码 */
-    // let result = await kugou_request("http://ioscdn.kugou.com/api/v3/search/song", {
-    //     keyword: key,
-    //     page: offset.trim(),
-    //     pagesize: limit.trim(),
-    //     showtype: 10,
-    //     plat: 2,
-    //     version: 7910,
-    //     tag: 1,
-    //     correct: 1,
-    //     privilege: 1,
-    //     sver: 5
-    // });
-
     global.cache.set(ctx.request.url, result.data);
 
 
     ctx.rest(result.data);
     result = null;
 }
+
+
+
 
 // 热搜
 let hotSearch = async (ctx) => {
@@ -310,7 +341,8 @@ const encodeNames = {
 module.exports = {
     search,
     hotSearch,
-    suggestSearch
+    suggestSearch,
+    mobileSearch
 }
 
 /* 酷狗官方 MD5 加密代码, 这里不使用，而是使用 第三方库 */
