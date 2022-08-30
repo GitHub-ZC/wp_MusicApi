@@ -77,10 +77,12 @@ let topCategory = async (ctx) => {
         return;
     }
 
-    let result = await kugou_request('http://mobilecdnbj.kugou.com/api/v3/rank/list?version=9108&plat=0&showtype=2&parentid=0&apiver=6&area_code=1&withsong=1');
+    
+    // let result = await kugou_request('http://mobilecdnbj.kugou.com/api/v3/rank/list?version=9108&plat=0&showtype=2&parentid=0&apiver=6&area_code=1&withsong=1');
+    let result = await axios.get(`https://gateway.kugou.com/ocean/v6/rank/list?srcappid=2919&dfid=10xLht0e9p5G2Gfkup4IHVuV&mid=212826578698488017179831213621749832494&signature=52321c148cf00a55c64f8534e5e6929f&clienttime=1661880203&uuid=4f3e2278033606d95d92efddc0744d9c&area_code=1&apiver=14&plat=1&withsong=1&showtype=2&clientver=11289&parentid=0&version=11289&cctv=1`);
 
-    result.data.data.info.splice(2, 2);
-    result.data.data.total = 31;
+    // result.data.data.info.splice(2, 2);
+    // result.data.data.total = 31;
 
     global.cache.set(ctx.request.url, result.data, 3600);
 
