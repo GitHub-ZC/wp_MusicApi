@@ -38,8 +38,8 @@ let song = async (ctx) => {
     }, 1);
 
     if(result.data.err_code.toString() == '30020' || result.data.err_code.toString() == '20010') {
-        global.kugou_cookie = '';
-        throw new APIError("Cookie:notfound", "Please set cookie")
+        // global.kugou_cookie = '';
+        throw new APIError("Cookie:ERROR", "Please set cookie")
     }
     // console.log(result);
     // 捕获序列化json出错，防止程序异常退出

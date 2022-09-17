@@ -156,7 +156,8 @@ let mobileSearch = async (ctx) => {
     // 生成时间戳
     let k = Math.round((new Date).getTime() / 1000);
     // MD5需要加密的字符串
-    let md5_str = `OIlwieks28dk2k092lksi2UIkpappid=1005area_code=1clienttime=${k}clientver=11289dfid=2Bcf0P0e9pGc4AkspX1F5uhPdopicfull=1iscorrection=1keyword=${key}mid=212826578698488017179831213621749832494page=${offset.trim()}pagesize=${limit.trim()}platform=AndroidFilterprivilegefilter=0requestid=3ac94ea8f7e152db1ecf7883c0bc6d44_1sec_aggre=1tag=emtoken=userid=0uuid=4f3e2278033606d95d92efddc0744d9cOIlwieks28dk2k092lksi2UIkp`
+    // let md5_str = `OIlwieks28dk2k092lksi2UIkpappid=1005area_code=1clienttime=${k}clientver=11289dfid=2Bcf0P0e9pGc4AkspX1F5uhPdopicfull=1iscorrection=1keyword=${key}mid=212826578698488017179831213621749832494page=${offset.trim()}pagesize=${limit.trim()}platform=AndroidFilterprivilegefilter=0requestid=3ac94ea8f7e152db1ecf7883c0bc6d44_1sec_aggre=1tag=emtoken=userid=0uuid=4f3e2278033606d95d92efddc0744d9cOIlwieks28dk2k092lksi2UIkp`
+    let md5_str = `OIlwieks28dk2k092lksi2UIkpappid=1005area_code=1clienttime=${k}clientver=11309dfid=3eSId30e9pJS4HZOOM0S3ju2dopicfull=1iscorrection=1keyword=${key}mid=212826578698488017179831213621749832494page=${offset.trim()}pagesize=${limit.trim()}platform=AndroidFilterprivilegefilter=0requestid=1c870bfa2b571b44f359b1bad998462f_2sec_aggre=1tag=emtoken=userid=0uuid=4f3e2278033606d95d92efddc0744d9cOIlwieks28dk2k092lksi2UIkp`
 
     let signature = cryptoJs.MD5(md5_str);
 
@@ -170,7 +171,7 @@ let mobileSearch = async (ctx) => {
             page: offset.trim(),
             token: '',
             privilegefilter: 0,
-            requestid: '3ac94ea8f7e152db1ecf7883c0bc6d44_1',
+            requestid: '1c870bfa2b571b44f359b1bad998462f_2',
             signature: signature.toString(),
             pagesize: limit.trim(),
             clienttime: k,
@@ -179,8 +180,8 @@ let mobileSearch = async (ctx) => {
             uuid: '4f3e2278033606d95d92efddc0744d9c',
             mid: '212826578698488017179831213621749832494',
             keyword: key,
-            dfid: '2Bcf0P0e9pGc4AkspX1F5uhP',
-            clientver: 11289,
+            dfid: '3eSId30e9pJS4HZOOM0S3ju2',
+            clientver: 11309,
             platform: 'AndroidFilter',
             tag: 'em'
         },
