@@ -1,7 +1,7 @@
 const Router = require('koa-router');
 
 const { search, hotSearch, suggestSearch, mobileSearch } = require('./search');
-const { song } = require('./song');
+const { song, getsong } = require('./song');
 const { top, topCategory } = require('./top');
 const { lyric } = require('./lyric');
 const { playlist_tagCategory, playlist_Tag, playlist_Info, playlist_list } = require('./playlist');
@@ -18,6 +18,7 @@ kugou.get('/suggestSearch', suggestSearch);
 kugou.get('/mobileSearch', mobileSearch);
 
 kugou.get('/song', song);
+kugou.get('/getsong', getsong);
 // kugou.get('/songInfo', songInfo);
 
 kugou.get('/lyric', lyric);
