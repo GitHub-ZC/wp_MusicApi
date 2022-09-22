@@ -89,18 +89,22 @@ let getsong = async (ctx) => {
             // platid: 4,
             // '_': Date.now(),
             // dfid: global.kugou_cookie.dfid ? global.kugou_cookie.dfid : global.kugou_cookie.kg_dfid
+        },
+        headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:103.0) Gecko/20100101 Firefox/103.0',
+            Referer: 'https://www.kugou.com/'
         }
     });
 
-    if(result.data.err_code.toString() == '30020' || result.data.err_code.toString() == '20010') {
-        // global.kugou_cookie = '';
-        throw new APIError("Cookie:ERROR", "Please set cookie")
-    }
+    // if(result.data.err_code.toString() == '30020' || result.data.err_code.toString() == '20010') {
+    //     // global.kugou_cookie = '';
+    //     throw new APIError("Cookie:ERROR", "Please set cookie")
+    // }
     // console.log(result);
     // 捕获序列化json出错，防止程序异常退出
-    if (result.data === 'failed') {
-        throw new APIError("Song:url_notfound", "Song url is not found")
-    }
+    // if (result.data === 'failed') {
+    //     throw new APIError("Song:url_notfound", "Song url is not found")
+    // }
 
     global.cache.set(ctx.request.url, result.data);
 
