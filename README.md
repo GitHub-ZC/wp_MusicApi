@@ -2,7 +2,7 @@
 
 
 
-![](https://img.shields.io/badge/最新版本-v1.3.4-green)
+![](https://img.shields.io/badge/最新版本-v1.4-green)
 
 
 [![](https://img.shields.io/badge/QQ群1-922193759-green)](https://jq.qq.com/?_wv=1027&k=3USa76OC)
@@ -29,7 +29,7 @@
 
 欢迎大家关注**微信公众号**，后续会慢慢更新优质资源
 
-![请关注一下公众号，每天有精彩资源推送](./docs/请关注一下公众号，每天有精彩资源推送.jpg)
+![请关注一下公众号，每天有精彩资源推送](C:\Users\15314\Desktop\tools\wp_MusicApi\docs\请关注一下公众号，每天有精彩资源推送.jpg)
 
 ## 新版特性
 
@@ -66,7 +66,9 @@ v1.3.3: 新增酷狗 mobileSearch 接口
 
 v1.3.4: 更新 酷狗排行榜详情 接口
 
-v1.3.5: 维护部分接口
+v1.3.5:  维护部分接口
+
+v1.4:  新增QQ扫码登录，本次采用的是基于Android端QQ音乐的身份令牌，登陆时间会保证更长时间
 
 
 

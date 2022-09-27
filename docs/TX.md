@@ -174,6 +174,22 @@ timeType`: 当前榜单的时间格式 `YYYY_W` 或 `YYYY-MM-DD
 
 说明：本接口会默认返回二维码，用手机QQ扫码确认即可登录，自动部署Cookie，为防止恶意调用访问接口，默认 **限制访问间隔** 50 秒，重复调用会覆盖服务端Cookie
 
+
+
+
+
+### QQ扫码登录(安卓端)
+
+接口：`/v1/qq/login_scan_long/`
+
+示例：`http://iecoxe.top:3000/v1/qq/login_scan_long`
+
+说明：本接口会默认返回二维码，用手机QQ扫码确认即可登录，自动部署Cookie，为防止恶意调用访问接口，默认 **限制访问间隔** 90秒，重复调用会覆盖服务端Cookie
+
+​			获取的cookie时效更长
+
+
+
 ## Cookie
 
 
