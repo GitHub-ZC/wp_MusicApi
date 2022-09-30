@@ -51,16 +51,36 @@ let search = async (ctx) => {
 
 
     let result = await axios.post(url, {
-        "music.search.SearchCgiService": {
-            "method": "DoSearchForQQMusicDesktop",
-            "module": "music.search.SearchCgiService",
-            "param": {
-                "num_per_page": limit.trim(),
-                "page_num": offset.trim(),
-                "query": key,
-                "search_type": type.trim()
-            }
-        }
+        // "music.search.SearchCgiService": {
+        //     "method": "DoSearchForQQMusicDesktop",
+        //     "module": "music.search.SearchCgiService",
+        //     "param": {
+        //         "num_per_page": limit.trim(),
+        //         "page_num": offset.trim(),
+        //         "query": key,
+        //         "search_type": type.trim()
+        //     }
+        // }
+        comm: {
+            ct: '19',
+            cv: '1859',
+            uin: '0',
+        },
+        req: {
+            method: 'DoSearchForQQMusicDesktop',
+            module: 'music.search.SearchCgiService',
+            param: {
+                grp: 1,
+                num_per_page: parseInt(limit.trim()),
+                page_num: parseInt(offset.trim()),
+                query: key,
+                search_type: type.trim(),
+            },
+        },
+    }, {
+        headers: {
+            'User-Agent': 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)',
+        },
     });
     // console.log(__Cookie.parse(global.qq_cookie));
 
