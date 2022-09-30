@@ -54,10 +54,10 @@ let songUrl = async (ctx) => {
     // standard => 标准,higher => 较高, exhigh=>极高, lossless=>无损, hires=>Hi-Res
     if (ctx.request.method === 'GET') {
         var id = ctx.request.query.id || '33894312';
-        var br = ctx.request.query.br || '128';
+        var br = ctx.request.query.br || 'higher';
     } else if (ctx.request.method === 'POST') {
         var id = ctx.request.body.id || '33894312';
-        var br = ctx.request.body.br || '320';
+        var br = ctx.request.body.br || 'higher';
     }
 
 
@@ -186,10 +186,10 @@ let songUrl = async (ctx) => {
     })
 
 
-    global.cache.set(ctx.request.url, result.data);
+    global.cache.set(ctx.request.url, [result.data]);
 
 
-    ctx.rest(result.data);
+    ctx.rest([result.data]);
     // ctx.rest(result.data);
     result = null;
 }
