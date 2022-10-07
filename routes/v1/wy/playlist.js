@@ -88,6 +88,9 @@ let playlist_Info = async (ctx) => {
     });
 
     // console.log(JSON.stringify(listDetail.data));
+    if(parseInt(listDetail.data.code) !== 200) {
+        throw new APIError("PlayList_Error", listDetail.data.message);
+    }
     let ids =
         listDetail.data.playlist.trackIds.map(trackId => trackId.id);
 

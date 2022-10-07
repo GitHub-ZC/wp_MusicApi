@@ -2,7 +2,7 @@
 
 
 
-![](https://img.shields.io/badge/最新版本-v1.4-green)
+![](https://img.shields.io/badge/最新版本-v1.4.1-green)
 
 
 [![](https://img.shields.io/badge/QQ群1-922193759-green)](https://jq.qq.com/?_wv=1027&k=3USa76OC)
@@ -69,6 +69,10 @@ v1.3.4: 更新 酷狗排行榜详情 接口
 v1.3.5:  维护部分接口
 
 v1.4:  新增QQ扫码登录，本次采用的是基于Android端QQ音乐的身份令牌，登陆时间会保证更长时间
+
+v1.4.1:  去除QQ基于Android端QQ音乐的扫码登录，新增接口加密，默认关闭，需要打开可以在 setting.js 中打开，新增网易云歌单歌曲获取，新增网易云无损音乐
+
+
 
 
 
