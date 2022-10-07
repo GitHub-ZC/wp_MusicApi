@@ -16,9 +16,9 @@
 
 
 
-## 获取音乐播放地址
+## 获取音乐播放地址(新版)
 
-请求地址：`/v1/wy/song`
+请求地址：`/v1/wy/songurl`
 
 请求示例：`http://iecoxe.top:5000/v1/wy/songurl?br=lossless&id=1463165983,167655,353066`
 
