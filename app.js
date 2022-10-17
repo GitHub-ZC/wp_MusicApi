@@ -49,12 +49,14 @@ app.use(cors());
 
 // 对于任何请求，app将调用该异步函数处理请求：
 app.use(async (ctx, next) => {
+    const start = new Date().getTime(); // 当前时间
     try {
-        const start = new Date().getTime(); // 当前时间
         await next(); // 调用下一个middleware
         const ms = new Date().getTime() - start; // 耗费时间
         console.log(`${ctx.request.method} ${ctx.request.url} ${ctx.status} Time: ${ms}ms`); // 打印耗费时间
     } catch (e) {
+        const ms = new Date().getTime() - start; // 耗费时间
+        console.log(`${ctx.request.method} ${ctx.request.url} ${ctx.status} Time: ${ms}ms`); // 打印耗费时间
         ctx.response.status = 400;
         ctx.response.type = 'application/json';
         ctx.response.body = {
