@@ -1,6 +1,6 @@
 {
   "name": "wp_MusicApi",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "一款Node.js的音乐接口",
   "main": "index.js",
   "scripts": {
