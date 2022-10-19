@@ -2,8 +2,7 @@
 
 
 
-![](https://img.shields.io/badge/最新版本-v1.4.1-green)
-
+![](https://img.shields.io/badge/最新版本-v1.4.4-green)
 
 [![](https://img.shields.io/badge/QQ群1-922193759-green)](https://jq.qq.com/?_wv=1027&k=3USa76OC)
 
@@ -75,6 +74,8 @@ v1.4.1:  去除QQ基于Android端QQ音乐的扫码登录，新增接口加密，
 v1.4.2:  新增网易云搜索接口
 
 v1.4.3:  新增网易云歌词接口，网易云mv播放地址获取接口
+
+v1.4.4:  新增网易云排行榜详情接口
 
 
 

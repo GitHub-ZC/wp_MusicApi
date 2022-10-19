@@ -6,6 +6,7 @@ const { playlist_Info } = require('./playlist');
 const { search } = require('./search');
 const { lyric } = require('./lyric');
 const { mv_url } = require('./mv');
+const { topCategory } = require('./top');
 
 
 // 新建 wy 路由
@@ -22,6 +23,8 @@ wy.get('/search', search);
 
 wy.get('/lyric', lyric);
 wy.get('/mv_url', mv_url);
+
+wy.get('/topCategory', topCategory);
 
 
 // // add post method
