@@ -17,6 +17,7 @@ const cors = require('koa2-cors');
 const config = require('./setting');
 const __Cookie = require('./util/cookie_util');
 const { getWYCookie } = require('./l');
+const { getQQCookie } = require('./refreshQQCookie');
 const { default: axios } = require('axios');
 
 
@@ -41,6 +42,15 @@ setInterval(() => {
 setInterval(() => {
     getWYCookie();
 }, 1000 * 60 * 60 * 24 * 12);
+
+// 更新QQcookie
+setTimeout(() => {
+    getQQCookie(config.QQ_uin);
+}, 10 * 1000);
+
+setInterval(() => {
+    getQQCookie(config.QQ_uin);
+}, 1000 * 60 * 60);
 
 // 创建一个Koa对象表示web app本身:
 const app = new Koa();

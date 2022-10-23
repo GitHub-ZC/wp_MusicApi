@@ -1,4 +1,5 @@
 const { default: axios } = require("axios");
+const __Cookie = require('./util/cookie_util');
 
 let parseNative = (cookie) => {
     let arr = cookie.split(";;");

@@ -2,7 +2,7 @@
 
 
 
-![](https://img.shields.io/badge/最新版本-v1.4.4-green)
+![](https://img.shields.io/badge/最新版本-v1.4.5-green)
 
 
 [![](https://img.shields.io/badge/QQ群1-922193759-green)](https://jq.qq.com/?_wv=1027&k=3USa76OC)
@@ -77,6 +77,8 @@ v1.4.2:  新增网易云搜索接口
 v1.4.3:  新增网易云歌词接口，网易云mv播放地址获取接口
 
 v1.4.4:  新增网易云排行榜详情接口
+
+v1.4.5:  新增网易云每日推荐歌曲接口，新增QQ登录自动刷新功能 => 在 `setting.js` 设置文件中 修改 **QQ_uin** 字段 ，QQ Cookie会自动刷新(需要在Cookie共享仓库中上传自己的Cookie信息)
 
 
 
