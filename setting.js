@@ -6,7 +6,7 @@ module.exports = {
     kugou_cookie: '',
     wy_cookie : `NTES_P_UTID=ADCXoiSt7mER2Q9bHQUehzzFTds5r3SY|1659801002; nts_mail_user=i153140965@163.com:-1:1; _ntes_nuid=2d881a8b54b2284a6689c2c60449140d; JSESSIONID-WYYY=EiHQcPu%2BIqupkjK4pjb9%2F39t8sekCI1x01XrTQwFCzhnm7w3cRt0v7%5Cs%2BUDGHZs9EPpT8am%2BFB5oB2rZvwFPsJ4%2Foo%2FUBoETErZrzhhI%2FT1IJEcz%2B1Frd%2F1nwMSrpeTb93HbN1hXKkp%5CMSJcQsY4fVN%2BMZkUdpdDPzPA1xekCx4azR0C%3A1660177911900; _iuqxldmzr_=32; _ntes_nnid=2d881a8b54b2284a6689c2c60449140d,1642125839709; NMTID=00OIWMmS9I0773lpk11uGYZe1GQ0AcAAAF-VlPOfw; WM_NI=w5cZx%2…8e43b8c88bf8dcb6dac90a0a6ae6efcf1fcaccc5fafefb9bbcb748d8aae83c93e8f8c8186d2709ab18795c841839e9bb8bb499c99fbbad861aebdb989d050949e9ed5f15496af8ea5cd799c8eb9b9d53b82bf82cccc4098b98886ef5baa9c9dd3c837e2a3; YD00000558929251%3AWM_TID=gFt8cdPgYHBBUERFQBfVDZCUS6OxyZWH; MUSIC_U=71278ae4829eb7192e53d3b92c838eed95834335705eeb9524c3d8cb60342b5ad1f884fb69b702f8e2dd8b4017f19e5975c0e953734075e81654cf6709263a0d1d645bedcf7aeb9aa0d2166338885bd7; __remember_me=true; __csrf=3b6a3575ccc677dfbaef7296d61f0ed9; playerid=47808503`,
     port: '5000',//服务器端口
-    QQ_uin: "782572516",//用于自动刷新的Cookie的QQ账号，前提是 已经上传在共享仓库中，如果想要获取Vip歌曲，请传入带绿钻的QQ号
+    QQ_uin: "XXXXXXXX",//用于自动刷新的Cookie的QQ账号，前提是 已经上传在共享仓库中，如果想要获取Vip歌曲，请传入带绿钻的QQ号
     is_open_validation: false,//是否打开加密验证
     version: 'v1.4.5'
 }
