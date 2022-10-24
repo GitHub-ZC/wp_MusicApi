@@ -46,23 +46,43 @@
 
 最近新写的接口，单独部署，主要实现 QQ音乐 Cookie 自动刷新
 
+
+
 接口：(GET)  http://42.192.118.65:5100/qq/getCookie
+
 示例：http://42.192.118.65:5100/qq/getCookie?uin=123456789
+
 参数：uin => QQ号
+
 注意：获取前提是 你上传过(通过/qq/setCookie接口) 登录成功的 QQ音乐 Cookie 字符串
 
+
+
 接口：(POST)  http://42.192.118.65:5100/qq/setCookie
+
 参数：data => QQ音乐 Cookie 字符串格式
+
 功能：上传的Cookie会自动刷新登录，通过(/qq/getCookie)获取的是刷新过后的Cookie
+
 注意：请上传登录成功的 QQ音乐 Cookie 字符串格式（浏览器 F12 获取），请使用 `x-www-form-urlencoded` 格式提交
 
+
+
 **项目介绍**：此项目只需要在 `setting.js` 项目设置文件中，修改 `QQ_uin` 字段的值(请填入QQ号，如果需要获取VIP歌曲，请传入带绿钻的QQ号，**前提是先将登陆过的Cookie传入共享仓库**)，就能实现Cookie的自动刷新
+
+
+
+
 
 
 
 ## 工作原理
 
 跨站请求伪造 (CSRF), 伪造请求头 , 调用官方 API
+
+
+
+
 
 
 
