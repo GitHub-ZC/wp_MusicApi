@@ -47,7 +47,7 @@
 
 
 
-接口：(GET)  http://42.192.118.65:5100/qq/getCookie
+> 接口：(GET)  http://42.192.118.65:5100/qq/getCookie
 
 示例：http://42.192.118.65:5100/qq/getCookie?uin=123456789
 
@@ -57,7 +57,7 @@
 
 
 
-接口：(POST)  http://42.192.118.65:5100/qq/setCookie
+> 接口：(POST)  http://42.192.118.65:5100/qq/setCookie
 
 参数：data => QQ音乐 Cookie 字符串格式
 
