@@ -42,11 +42,19 @@ let song = async (ctx) => {
         'flac': {
             's': 'F000',
             'e': '.flac',
+        },
+        'mflac': {
+            's': 'F0M0',
+            'e': '.mflac',
+        },
+        'Hi-Res': {
+            's': 'RS01',
+            'e': '.flac',
         }
     }
 
     if (typeMap[br] === undefined) {
-        throw new APIError("Song:br_error", "br is not m4a, 128, 320, flac");
+        throw new APIError("Song:br_error", "br is not m4a, 128, 320, flac, mflac, Hi-Res");
     }
 
     let filename = `"${typeMap[br].s}${mid.trim() + mid.trim()}${typeMap[br].e}"`;
