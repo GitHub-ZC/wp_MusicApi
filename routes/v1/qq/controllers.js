@@ -7,8 +7,9 @@ const { lyric } = require('./lyric');
 const { getcookie, setcookie, refresh } = require('./cookie');
 const { playlist_Info } = require('./playlist'); /* playlist_tagCategory, playlist_Tag, */
 const { login, login_scan } = require('./login');
+const { comment } = require('./comment');
 
-// 新建 咪咕 路由
+// 新建 QQ 路由
 const qq = new Router();
 
 // add get method
@@ -27,6 +28,9 @@ qq.get('/topCategory', topCategory);
 
 qq.get('/getcookie', getcookie);
 qq.get('/refresh', refresh);
+
+qq.get('/comment', comment);
+
 
 qq.get('/login', login);
 qq.get('/login_scan', login_scan);

@@ -41,6 +41,14 @@
 
 
 
+## 项目安装与使用(新增 npm 安装方式)
+
+[wp_MusicApi 安装使用说明](https://github-zc.github.io/wp_MusicApi/#/common)
+
+
+
+
+
 ## Cookie 共享仓库使用说明
 
 最近新写的接口，单独部署，主要实现 QQ音乐 Cookie 自动刷新
