@@ -73,7 +73,7 @@ let songUrl = async (ctx) => {
         //     NMTID: '00OPbWFr9FuCfpiwEn-tXTxQ1P2ZyAAAAGDiZLQ1A',
         //     os: 'pc'
         // },
-        cookie: global.wy_cookie,
+        cookie: {...global.wy_cookie, os: 'pc'},
         proxy: undefined,
         realIP: undefined,
         url: '/api/song/enhance/player/url/v1',

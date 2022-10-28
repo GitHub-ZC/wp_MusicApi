@@ -8,6 +8,7 @@ const { lyric } = require('./lyric');
 const { mv_url } = require('./mv');
 const { topCategory } = require('./top');
 const { recommendSongs } = require('./recommendSongs');
+const { comment, comment_hot } = require('./comment');
 
 
 // 新建 wy 路由
@@ -28,6 +29,9 @@ wy.get('/mv_url', mv_url);
 wy.get('/topCategory', topCategory);
 
 wy.get('/recommendSongs', recommendSongs);
+
+wy.get('/comment', comment);
+wy.get('/comment/hot', comment_hot);
 
 
 // // add post method

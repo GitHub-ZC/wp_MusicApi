@@ -5,6 +5,7 @@ const { song, songInfo } = require('./song');
 const { top, topCategory } = require('./top');
 const { lyric } = require('./lyric');
 const { playlist_tagCategory, playlist_Tag, playlist_Info } = require('./playlist');
+const { comment } = require('./comment');
 
 // 新建 咪咕 路由
 const kuwo = new Router();
@@ -22,6 +23,8 @@ kuwo.get('/lyric', lyric);
 
 kuwo.get('/top', top);
 kuwo.get('/topCategory', topCategory);
+
+kuwo.get('/comment', comment);
 
 // kuwo.get('/singer/info', singer_Info);
 // kuwo.get('/singer/songList', singer_songList);

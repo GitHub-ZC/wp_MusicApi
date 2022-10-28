@@ -6,8 +6,9 @@ const { top, topCategory } = require('./top');
 const { lyric } = require('./lyric');
 const { playlist_tagCategory, playlist_Tag, playlist_Info, playlist_list } = require('./playlist');
 const { setcookie, getcookie } = require('./cookie');
+const { comment, replyComment } = require('./comment');
 
-// 新建 咪咕 路由
+// 新建 kugou 路由
 const kugou = new Router();
 
 // add get method
@@ -25,6 +26,9 @@ kugou.get('/lyric', lyric);
 
 kugou.get('/top', top);
 kugou.get('/topCategory', topCategory);
+
+kugou.get('/comment', comment);
+kugou.get('/replyComment', replyComment);
 
 // kugou.get('/singer/info', singer_Info);
 // kugou.get('/singer/songList', singer_songList);
