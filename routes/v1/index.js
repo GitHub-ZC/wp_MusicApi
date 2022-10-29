@@ -54,7 +54,7 @@ module.exports = (() => {
             rest = function (data) {
                 result = data;
             };
-            
+
             try {
                 await element.stack[0]({
                     request: {
@@ -64,8 +64,11 @@ module.exports = (() => {
                     },
                     rest
                 });
-            } catch (error) {
-                console.warn(error);
+            } catch (e) {
+                result = {
+                    code: e.code || 'internal:unknown_error',
+                    message: e.message || ''
+                };
             }
 
             return result;
