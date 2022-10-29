@@ -2,7 +2,7 @@
 
 
 
-![](https://img.shields.io/badge/最新版本-v1.4.5-green)
+![](https://img.shields.io/badge/最新版本-v1.4.6-green)
 
 
 [![](https://img.shields.io/badge/QQ群1-922193759-green)](https://jq.qq.com/?_wv=1027&k=3USa76OC)
@@ -124,7 +124,7 @@ v1.4.4:  新增网易云排行榜详情接口
 
 v1.4.5:  新增网易云每日推荐歌曲接口，新增QQ登录自动刷新功能 => 在 `setting.js` 设置文件中 修改 **QQ_uin** 字段 ，QQ Cookie会自动刷新(需要在Cookie共享仓库中上传自己的Cookie信息)
 
-
+v1.4.6:  新增五个平台的评论接口，从此版本开始，项目支持 **npm** 安装方式([npm 使用说明](https://github-zc.github.io/wp_MusicApi/#/common))
 
 
 

@@ -13,14 +13,14 @@ let comment = async (ctx) => {
         var offset = ctx.request.query.offset || '1';
         var limit = ctx.request.query.limit || '30';
         var type = ctx.request.query.type || '0';
-        var sortType = ctx.request.query.sortType || '0';
+        var sortType = ctx.request.query.sortType || '1';
         var cursor = ctx.request.query.cursor || '0';
     } else if (ctx.request.method === 'POST') {
         var id = ctx.request.body.id || '';
         var offset = ctx.request.body.offset || '1';
         var limit = ctx.request.body.limit || '30';
         var type = ctx.request.body.type || '0';
-        var sortType = ctx.request.body.sortType || '0';
+        var sortType = ctx.request.body.sortType || '1';
         var cursor = ctx.request.body.cursor || '0';
     }
 
