@@ -96,7 +96,7 @@
 
 请求地址：`/v1/kugou/replyComment`
 
-请求示例：`http://iecoxe.top:5000http://localhost:5000/v1/migu/replyComment?commentId=1000000000000007203662`
+请求示例：`http://iecoxe.top:5000/v1/migu/replyComment?commentId=1000000000000007203662`
 
 | 参数      | 是否必须 | 接口说明             | 默认值 |
 | --------- | -------- | -------------------- | ------ |
