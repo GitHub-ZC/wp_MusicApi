@@ -623,11 +623,11 @@ setMaxDigits(20),
 
 
 module.exports = {
-    s: (ids) => {
+    s: (ids, br) => {
         let i2x = {
             "ids": `[${ids}]`,
-            "level": "standard",
-            "encodeType": "mp3",
+            "level": br,
+            "encodeType": "flac",
             "csrf_token": ""
         };
 
