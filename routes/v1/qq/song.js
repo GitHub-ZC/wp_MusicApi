@@ -56,18 +56,29 @@ let song = async (ctx) => {
     if (typeMap[br] === undefined) {
         throw new APIError("Song:br_error", "br is not m4a, 128, 320, flac, mflac, Hi-Res");
     }
+    
 
-    let filename = `"${typeMap[br].s}${mid.trim() + mid.trim()}${typeMap[br].e}"`;
-    let mids = `"${mid.trim()}"`;
+    let filename = mid.split(",").filter(e => String(e).trim()).map(id => `"${typeMap[br].s}${id.trim() + id.trim()}${typeMap[br].e}"`).join(",");
+    let mids = mid.split(",").filter(e => String(e).trim()).map(id => `"${id.trim()}"`).join(",");
+    
+    // let filename = `"${typeMap[br].s}${mid.trim() + mid.trim()}${typeMap[br].e}"`;
+    // let mids = `"${mid.trim()}"`;
 
     let result = await qq_request(`https://u.y.qq.com/cgi-bin/musicu.fcg?format=json&data={"req":{"module":"CDN.SrfCdnDispatchServer","method":"GetCdnDispatch","param":{"guid":"658650575","calltype":0,"userip":""}},"req_0":{"module":"vkey.GetVkeyServer","method":"CgiGetVkey","param":{"filename":[${filename}],"guid":"658650575","songmid":[${mids}],"songtype":[0],"uin":"${uin}","loginflag":1,"platform":"20"}},"comm":{"uin":${uin},"format":"json","ct":24,"cv":0}}`);
     // console.log(result);
     // 捕获序列化json出错，防止程序异常退出
 
-    if(result.data.req_0.data.midurlinfo.length && result.data.req_0.data.midurlinfo[0].purl) {
+
+    let arrUrls = [];
+    result.data.req_0.data.midurlinfo.length && result.data.req_0.data.midurlinfo.forEach(e => {
+        arrUrls.push(e.purl ? 'https://isure.stream.qqmusic.qq.com/' + e.purl : null);
+    });
+
+    if (result.data.req_0.data.midurlinfo.length && result.data.req_0.data.midurlinfo[0].purl) {
         global.cache.set(ctx.request.url, {
             data: {
-                url: result.data.req_0.data.midurlinfo.length && result.data.req_0.data.midurlinfo[0].purl ? 'https://isure.stream.qqmusic.qq.com/' + result.data.req_0.data.midurlinfo[0].purl : null
+                // url: result.data.req_0.data.midurlinfo.length && result.data.req_0.data.midurlinfo[0].purl ? 'https://isure.stream.qqmusic.qq.com/' + result.data.req_0.data.midurlinfo[0].purl : null
+                url: arrUrls.length === 1 ? arrUrls[0] : arrUrls
             },
             code: "成功"
         });
@@ -76,7 +87,8 @@ let song = async (ctx) => {
 
     ctx.rest({
         data: {
-            url: result.data.req_0.data.midurlinfo.length && result.data.req_0.data.midurlinfo[0].purl ? 'https://isure.stream.qqmusic.qq.com/' + result.data.req_0.data.midurlinfo[0].purl : null
+            // url: result.data.req_0.data.midurlinfo.length && result.data.req_0.data.midurlinfo[0].purl ? 'https://isure.stream.qqmusic.qq.com/' + result.data.req_0.data.midurlinfo[0].purl : null
+            url: arrUrls.length === 1 ? arrUrls[0] : arrUrls
         },
         code: "成功"
     });

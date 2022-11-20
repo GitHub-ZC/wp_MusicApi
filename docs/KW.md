@@ -198,3 +198,23 @@ flac音质请求示例：`http://iecoxe.top:5500?rid=156483846&br=2000`
 | limit  | ×        | 返回歌曲数量 | 30         |
 | offset | ×        | 数据偏移页数 | 1          |
 
+
+
+
+
+
+
+## 导入自建歌单歌曲(新增)
+
+请求地址：`/v1/kuwo/playlist/import`
+
+请求示例：`http://iecoxe.top:5000/v1/kuwo/playlist/import?id=3420768986`
+
+| 参数 | 是否必须 | 接口说明 | 默认值 |
+| ---- | -------- | -------- | ------ |
+| id   | √        | 酷狗码   |        |
+
+说明：`通过分享链接中的 导入自建歌单 我喜欢 等等`
+
+示例：`https://m.kuwo.cn/h5app/playlist/3420768986?t=plantform` 中的 **3420768986**
+

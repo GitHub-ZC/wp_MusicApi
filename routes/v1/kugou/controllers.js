@@ -4,7 +4,7 @@ const { search, hotSearch, suggestSearch, mobileSearch } = require('./search');
 const { song, getsong } = require('./song');
 const { top, topCategory } = require('./top');
 const { lyric } = require('./lyric');
-const { playlist_tagCategory, playlist_Tag, playlist_Info, playlist_list } = require('./playlist');
+const { playlist_tagCategory, playlist_Tag, playlist_Info, playlist_list, playlist_import } = require('./playlist');
 const { setcookie, getcookie } = require('./cookie');
 const { comment, replyComment } = require('./comment');
 
@@ -37,6 +37,7 @@ kugou.get('/playlist/tagCategory', playlist_tagCategory);
 kugou.get('/playlist/tag', playlist_Tag);
 kugou.get('/playlist/info', playlist_Info);
 kugou.get('/playlist/list', playlist_list);
+kugou.get('/playlist/import', playlist_import);
 
 kugou.get('/getcookie', getcookie);
 // // add post method

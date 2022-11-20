@@ -1,3 +1,4 @@
+const { default: axios } = require("axios");
 const { kuwo_request } = require("../../../util/kuwo_request");
 const APIError = require("../../../middlewares/rest").APIError;
 
@@ -104,8 +105,42 @@ let playlist_Info = async (ctx) => {
     ctx.rest(result.data)
 }
 
+
+
+
+//外部导入歌单 => 酷狗码（只支持500首） PC
+let playlist_import = async (ctx) => {
+
+    if (ctx.request.method === 'GET') {
+        var id = ctx.request.query.id || '';
+    } else if (ctx.request.method === 'POST') {
+        var id = ctx.request.body.id || '';
+    }
+
+    if (id.trim() === '') {
+        throw new APIError("Playlist:Error", "id is not found");
+    }
+
+    const cacheData = global.cache.get(ctx.request.url);
+    if (cacheData) {
+        ctx.rest(cacheData);
+        return;
+    }
+
+
+    let result = await axios.get(`http://nplserver.kuwo.cn/pl.svc?op=getlistinfo&pid=${id}&pn=0&rn=10000&encode=utf8&keyset=pl2012&identity=kuwo&pcmp4=1&vipver=MUSIC_9.0.5.0_W1&newver=1`);
+
+
+    global.cache.set(ctx.request.url, result.data);
+
+    ctx.rest(result.data);
+}
+
+
+
 module.exports = {
     playlist_tagCategory,
     playlist_Tag,
-    playlist_Info
+    playlist_Info,
+    playlist_import
 }

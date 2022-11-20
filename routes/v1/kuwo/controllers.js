@@ -4,7 +4,7 @@ const { search, hotSearch, suggestSearch } = require('./search');
 const { song, songInfo } = require('./song');
 const { top, topCategory } = require('./top');
 const { lyric } = require('./lyric');
-const { playlist_tagCategory, playlist_Tag, playlist_Info } = require('./playlist');
+const { playlist_tagCategory, playlist_Tag, playlist_Info, playlist_import } = require('./playlist');
 const { comment } = require('./comment');
 
 // 新建 咪咕 路由
@@ -32,6 +32,7 @@ kuwo.get('/comment', comment);
 kuwo.get('/playlist/tagCategory', playlist_tagCategory);
 kuwo.get('/playlist/tag', playlist_Tag);
 kuwo.get('/playlist/info', playlist_Info);
+kuwo.get('/playlist/import', playlist_import);
 
 // // add post method
 // kuwo.post('/song', song);

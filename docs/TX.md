@@ -60,6 +60,7 @@
 
 - 这个接口依赖服务器的 Cookie 信息的，支持批量获取，不一定是全部的歌曲都有无损、高品的， 要注意结合 size320，sizeape，sizeflac 等参数先判断下是否有播放链接
 - 服务器内置默认的 Cookie ，如果是未登陆或非 vip 用户的 `cookie`，只能获取到非 vip 用户可听的歌曲
+- 首页有一个cookie共享仓库，将自己的绿钻 cookie 传入之后， 会自动刷新 cookie ，保持长期有效，仓库使用说明 [cookie 共享仓库地址 点击跳转](https://github-zc.github.io/wp_MusicApi/#/?id=cookie-%e5%85%b1%e4%ba%ab%e4%bb%93%e5%ba%93%e4%bd%bf%e7%94%a8%e8%af%b4%e6%98%8e)
 - 服务器 Cookie 的设置，可以使用 [/qq/setcookie/](//#/?id=设置用户cookie)
 - 服务器会自动去除mid，br以及songmid之间的**空白字符**
 
@@ -73,7 +74,7 @@
 
 示例：[/v1/qq/song?mid=0039MnYb0qxYhV&br=flac](http://iecoxe.top:5000/v1/qq/song?mid=0039MnYb0qxYhV&br=flac)
 
-
+`http://localhost:5000/v1/qq/song?mid=001Qu4I30eVFYb,003EKHdv2KvTc6,0032ZOkm0LBgHW`
 
 ## 歌词
 

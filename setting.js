@@ -8,5 +8,5 @@ module.exports = {
     port: '5000',//服务器端口
     QQ_uin: "XXXXXXXX",//用于自动刷新的Cookie的QQ账号，前提是 已经上传在共享仓库中，如果想要获取Vip歌曲，请传入带绿钻的QQ号 https://github-zc.github.io/wp_MusicApi/#/
     is_open_validation: false,//是否打开加密验证
-    version: 'v1.5.1'
+    version: 'v1.5.2'
 }

@@ -24,7 +24,7 @@ const CryptoJS = require('crypto-js');
     }
 
     try {
-        let result = await axios.get('http://42.192.118.65:5100/kugou/song?hash=6772242C10CA964EF235EE29F8DDCB31', {
+        let result = await axios.get('http://42.192.118.65:5100/kugou/song?hash=A1105CC90AF7168721E805E4ADED8F7A', {
             headers: {
                 'imax-music': encrypted.toString()
             }
