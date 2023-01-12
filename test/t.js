@@ -28,4 +28,16 @@ const CryptoJS = require('crypto-js');
     // } catch (error) {
     //     console.log(error);
     // }
+
+
+    try {
+        let result = await axios.get('http://43.138.145.42:5002/v1/wy/getcookie', {
+            headers: {
+                'imax-music': ciphertext
+            }
+        });
+        console.log(result.data);
+    } catch (error) {
+        console.log(error);
+    }
 })();

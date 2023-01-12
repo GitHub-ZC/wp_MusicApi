@@ -1,6 +1,7 @@
 const APIError = require("../../../middlewares/rest").APIError;
 const { default: axios } = require("axios");
 const { eapi } = require('../../../util/crypto');
+const cookie_util = require("../../../util/cookie_util");
 const qs = require('qs')
 
 
@@ -34,7 +35,8 @@ let search = async (ctx) => {
         method: 'post',
         headers: {
             'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36',
-            origin: 'https://music.163.com'
+            origin: 'https://music.163.com',
+            Cookie: cookie_util.serialization(global.wy_cookie)
         }
     });
 
